@@ -6,6 +6,7 @@ public class MovementComponent : MonoBehaviour
 {
     [Header("Components")]
     private Rigidbody _rb;
+    private PlayerStateController _stateController;
 
     [Header("Movement")]
     public float moveAcceleration = 1.0f;
@@ -22,9 +23,14 @@ public class MovementComponent : MonoBehaviour
 
     public bool disableMovement = false;
 
+    [HideInInspector] public Vector2 moveInput;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _stateController = GetComponent<PlayerStateController>();
+        _stateController.inputActions.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        _stateController.inputActions.Player.Jump.performed += ctx => Jump();
     }
 
     void Update()
@@ -34,35 +40,32 @@ public class MovementComponent : MonoBehaviour
 
         //Movement
         Move();
-
-        //Jump
-        Jump();
     }
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump") && OnGround)
+        if (OnGround && disableMovement == false)
         {
             //Add force
+            _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
             _rb.AddForce(jumpForceUp * Vector3.up, ForceMode.Impulse);
         }
     }
 
     private void Move()
     {
-        //Getting Input
-        float translation = Input.GetAxis("Vertical");
-        float straffe = Input.GetAxis("Horizontal");
-
         //Move Vector
-        Vector3 move = new Vector3(straffe, 0, translation);
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         move = Camera.main.transform.TransformDirection(move);
         move.y = 0;
         move = move.normalized * Time.deltaTime * moveAcceleration * inputInfluence;
 
         //Moving the player
-        Debug.Log(new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude);
+        //Debug.Log(new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude);
         if (new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude < maxSpeed)
             _rb.AddForce(move);
+
+        if (move.magnitude != 0)
+            _stateController.LastMoveDirection = new Vector2(move.x, move.z).normalized;
     }
 }

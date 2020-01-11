@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GizmoSphere : MonoBehaviour
 {
-    [SerializeField] private Color _color;
+    [SerializeField] private Color _color = new Color(1, 0, 0, 1);
 
     private void OnDrawGizmos()
     {

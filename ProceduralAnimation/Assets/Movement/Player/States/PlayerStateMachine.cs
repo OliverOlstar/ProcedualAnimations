@@ -19,7 +19,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         var nextState = CurrentState?.Tick();
 
-        if(nextState != null && nextState != CurrentState?.GetType())
+        if (nextState != null && nextState != CurrentState?.GetType())
         {
             CurrentState.Exit();
             SwitchToNextState(nextState);
@@ -32,8 +32,8 @@ public class PlayerStateMachine : MonoBehaviour
         _States = states;
     }
 
-    private void SwitchToNextState(Type _nextState)
+    private void SwitchToNextState(Type pNextState)
     {
-        CurrentState = _States[_nextState];
+        CurrentState = _States[pNextState];
     }
 }

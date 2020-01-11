@@ -14,39 +14,43 @@ public class DodgeState : BaseState
 
     public override void Enter()
     {
+        Debug.Log("DodgeState: Enter");
+
         //Dodge Direction
-        Vector3 vec = new Vector3(stateController.movementDir.x, 0, stateController.movementDir.z).normalized;
+        Vector2 direction = stateController.LastMoveDirection;
 
         //Start Dodge
-        if (stateController._dodgeComponent.Dodge(stateController.shortDodgeInput, vec))
-            stateController._animHandler.StartDodge(vec);
+        stateController._dodgeComponent.Dodge(stateController._dodgeComponent.dodgeInput == 0, direction);
+        //    stateController._animHandler.StartDodge(vec);
 
         //Remove Input
-        stateController.shortDodgeInput = false;
-        stateController.longDodgeInput = false;
+        stateController._dodgeComponent.dodgeInput = -1;
     }
 
     public override void Exit()
     {
+        Debug.Log("DodgeState: Exit");
+
         //Stop Anim Dodge
-        stateController._animHandler.StopDodge();
+        //stateController._animHandler.StopDodge();
+        stateController._dodgeComponent.dodgeInput = -1;
     }
 
     public override Type Tick()
     {
-        //Leave Dodge
+        // Leave Dodge
         if (stateController._dodgeComponent.doneDodge)
         {
             stateController._dodgeComponent.doneDodge = false;
             return typeof(MovementState);
         }
 
-        //Respawn
+        // Respawn
         if (stateController.Respawn)
         {
             stateController.Respawn = false;
-            stateController._animHandler.Respawn();
-            stateController._dodgeComponent.EndDodge();
+            //stateController._animHandler.Respawn();
+            stateController._dodgeComponent.StopDodge();
             return typeof(MovementState);
         }
 

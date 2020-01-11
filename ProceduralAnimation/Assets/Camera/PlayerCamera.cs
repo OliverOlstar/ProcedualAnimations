@@ -27,7 +27,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float idleSpinY = 40;
 
     [Header("Camera Collision")]
-    [SerializeField] private LayerMask cameraCollisionLayers;
+    [SerializeField] private LayerMask cameraCollisionLayers = new LayerMask();
     [SerializeField] private float cameraCollisionDampening = 20;
     [SerializeField] [Range(0, 1)] private float cameraCollisionMinDisPercent = 0.1f;
     [SerializeField] private float cameraCollisionOffset = 0.1f;

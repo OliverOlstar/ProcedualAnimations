@@ -14,45 +14,42 @@ public class MovementState : BaseState
 
     public override void Enter()
     {
+        Debug.Log("MoveState: Enter");
         stateController._movementComponent.disableMovement = false;
     }
 
     public override void Exit()
     {
+        Debug.Log("MoveState: Exit");
         stateController._movementComponent.disableMovement = true;
     }
 
     public override Type Tick()
     {
-        //Get Input
-        //stateController._movementComponent.horizontalInput = stateController.horizontalInput;
-        //stateController._movementComponent.verticalInput = stateController.verticalInput;
-        //stateController._movementComponent.jumpInput = stateController.jumpInput;
-
-        //Get OnGround
-        stateController._movementComponent.OnGround = stateController.OnGround;
+        // Idle
+        if (stateController._movementComponent.moveInput.magnitude == 0)
+        {
+            return typeof(IdleState);
+        }
 
         //Dodge
-        if (stateController.longDodgeInput || stateController.shortDodgeInput)
+        if (stateController._dodgeComponent.dodgeInput != -1)
         {
             return typeof(DodgeState);
         }
 
-        //Attack
-        if (stateController.heavyAttackInput || stateController.quickAttackInput || stateController.powerInput > 0)
-        {
-            if (stateController.AttackStateReturnDelay <= Time.time)
-            {
-                return typeof(AttackState);
-            }
-            else
-            {
-                //If Inputed attack before they can return to the attack state, remove the input
-                stateController.quickAttackInput = false;
-                stateController.heavyAttackInput = false;
-                stateController.powerInput = 0;
-            }
-        }
+        ////Attack
+        //if (stateController.heavyAttackInput || stateController.quickAttackInput || stateController.powerInput > 0)
+        //{
+        //    if (stateController.AttackStateReturnDelay <= Time.time)
+        //    {
+        //        return typeof(AttackState);
+        //    }
+        //    else
+        //    {
+        //        //If Inputed attack before they can return to the attack state, remove the input
+        //    }
+        //}
 
         //Dead
         if (stateController._playerAttributes.getHealth() <= 0)
