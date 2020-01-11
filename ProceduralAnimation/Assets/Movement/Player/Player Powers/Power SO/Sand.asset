@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3665ea56f6bcad3429bf3d0b917eb9e5, type: 3}
+  m_Name: Sand
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  dislayName: Sand Coffin
+  dislayDescription: Description
+  animationIndex: 2
+  WhichPower: 2
+  powerRequired: 10
+  damage: 40
+  powerDescriptions:
+  - The created pit is now larger and can trap 2 enemies.
+  - "After 2 enemies are trapped the pit explodes, \ndealing 50% of their health as
+    damage."
+  cost: 0300000005000000

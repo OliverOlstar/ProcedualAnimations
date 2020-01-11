@@ -16,8 +16,9 @@ public class OnGround : MonoBehaviour
     private float terminalFallingTimer = 0;
 
     [Space]
-    public float inputInfluenceGrounded = 1.0f;
-    public float inputInfluenceInAir = 0.7f;
+    [SerializeField] private float inputInfluenceGrounded = 1.0f;
+    [SerializeField] private float inputInfluenceInAir = 0.7f;
+    [SerializeField] private float influenceUpdateRate = 1.0f;
 
     [Space]
     [SerializeField] private float downForceRate = 6f;
@@ -92,10 +93,13 @@ public class OnGround : MonoBehaviour
         //Change the amount of influence player input has on the player movement based on wether he is grounded or not
         if (_moveComponent.OnGround)
         {
+            _moveComponent.inputInfluence = inputInfluenceGrounded;
             downForce = 0;
         }
         else
         {
+            _moveComponent.inputInfluence = inputInfluenceInAir;
+
             //Add force downwards which adds ontop of gravity
             if (downForce < downForceTerminal)
                 downForce += downForceRate * Time.deltaTime;
@@ -104,5 +108,11 @@ public class OnGround : MonoBehaviour
         }
 
         _rb.AddForce(Vector3.down * Mathf.Pow(downForce, 2));
+    }
+
+    private void LerpInputInfluence(float pTarget)
+    {
+        //Update inputInflunce to target
+        //_moveComponent.inputInfluence = Mathf.Lerp(_moveComponent.inputInfluence, pTarget, influenceUpdateRate * Time.deltaTime);
     }
 }

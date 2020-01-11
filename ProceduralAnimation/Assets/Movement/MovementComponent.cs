@@ -5,11 +5,13 @@ using UnityEngine;
 public class MovementComponent : MonoBehaviour
 {
     [Header("Components")]
-    private Rigidbody _Rb;
+    private Rigidbody _rb;
 
     [Header("Movement")]
-    public float moveSpeed = 1.0f;
+    public float moveAcceleration = 1.0f;
     public float maxSpeed = 4.0f;
+
+    public float inputInfluence = 1.0f;
 
     [Header("Jump")]
     public float jumpDistance = 5;
@@ -18,15 +20,20 @@ public class MovementComponent : MonoBehaviour
 
     public bool OnGround;
 
+    public bool disableMovement = false;
+
     void Start()
     {
-        _Rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+        if (disableMovement) 
+            return;
+
         //Movement
-        PlayerMove();
+        Move();
 
         //Jump
         Jump();
@@ -34,17 +41,14 @@ public class MovementComponent : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && OnGround)
         {
-            if (OnGround)
-            {
-                //Add force
-                _Rb.AddForce(jumpForceUp * _Rb.mass * Vector3.up, ForceMode.Impulse);
-            }
+            //Add force
+            _rb.AddForce(jumpForceUp * Vector3.up, ForceMode.Impulse);
         }
     }
 
-    private void PlayerMove()
+    private void Move()
     {
         //Getting Input
         float translation = Input.GetAxis("Vertical");
@@ -53,18 +57,12 @@ public class MovementComponent : MonoBehaviour
         //Move Vector
         Vector3 move = new Vector3(straffe, 0, translation);
         move = Camera.main.transform.TransformDirection(move);
-        move = new Vector3(move.x, 0, move.z);
-        move = move.normalized;
+        move.y = 0;
+        move = move.normalized * Time.deltaTime * moveAcceleration * inputInfluence;
 
         //Moving the player
-        move = move * Time.deltaTime * moveSpeed * _Rb.mass;
-        if (new Vector3(_Rb.velocity.x, 0, _Rb.velocity.z).magnitude < maxSpeed)
-            _Rb.AddForce(move);
-
-    }
-
-    public void EndJump()
-    {
-        StopCoroutine("JumpRoutine");
+        Debug.Log(new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude);
+        if (new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude < maxSpeed)
+            _rb.AddForce(move);
     }
 }
