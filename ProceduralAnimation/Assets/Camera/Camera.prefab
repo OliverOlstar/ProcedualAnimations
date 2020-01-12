@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5688443931053791714}
-  - component: {fileID: 5688443931053791717}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -32,23 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5688443931053791717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5688443931053791715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 640f5e2c293f649499d743e5f0691339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offSetUp: 0.6
-  runFunc1: 0
-  DemoVarsPreset: {fileID: 0}
-  DemoVarTrnsSpd: 1
 --- !u!1 &5688443931472006255
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b60d3a0c3e72974f90c65fe0e878dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   lockOnTarget: {fileID: 0}
   Inverted: 0
   lockOnXOffset: 0
@@ -191,11 +174,8 @@ MonoBehaviour:
   cameraCollisionDampening: 20
   cameraCollisionMinDisPercent: 0.09
   cameraCollisionOffset: 0.4
-  MouseSensitivity: 5
-  TurnDampening: 20
-  OffSetLeft: 0
-  CameraDistance: 6
-  CameraMinHeight: -35
-  CameraMaxHeight: 70
+  mouseSensitivity: 4
+  defaultPreset: {fileID: 0}
+  turnDampening: 10
   CameraDisabled: 0
   Idle: 0

@@ -173,18 +173,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99673a64a6634ef40ae9ff0a5e345abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGroundedCheckDistance: 1
-  respawnYOffset: 1
-  fallMaxTime: 5
-  fallDamageStartTime: 1
-  fallDamageMax: 40
-  fallDamageMin: 20
-  inputInfluenceGrounded: 1
-  inputInfluenceInAir: 0.6
-  influenceUpdateRate: 4
-  downForceRate: 5.5
-  downForceTerminal: 6.5
-  downForce: 0
+  _isGroundedCheckDistance: 1
+  _respawnYOffset: 1
+  _fallMaxTime: 2
+  _fallDamageStartTime: 1
+  _fallDamageMax: 40
+  _fallDamageMin: 20
+  _inputInfluenceGrounded: 1
+  _inputInfluenceInAir: 0.7
+  _influenceUpdateRate: 1
+  _downForceRate: 5
+  _downForceTerminal: 7
 --- !u!114 &673868684345231210
 MonoBehaviour:
   m_ObjectHideFlags: 0

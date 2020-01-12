@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class OnGround : MonoBehaviour
 {
-    [SerializeField] private float isGroundedCheckDistance = 1.0f;
-    [SerializeField] private float respawnYOffset = 1;
-    private Vector3 lastPoint = new Vector3(0,0,0);
+    [SerializeField] private float _isGroundedCheckDistance = 1.0f;
+    [SerializeField] private float _respawnYOffset = 1;
+    private Vector3 _lastPoint = new Vector3(0,0,0);
 
     [Header("Fall Damage")]
-    [SerializeField] private float fallMaxTime = 2;
-    [SerializeField] private float fallDamageStartTime = 1;
-    [SerializeField] private int fallDamageMax = 40;
-    [SerializeField] private int fallDamageMin = 20;
-    private float terminalFallingTimer = 0;
+    [SerializeField] private float _fallMaxTime = 2;
+    [SerializeField] private float _fallDamageStartTime = 1;
+    [SerializeField] private int _fallDamageMax = 40;
+    [SerializeField] private int _fallDamageMin = 20;
+    private float _terminalFallingTimer = 0;
 
     [Space]
-    [SerializeField] private float inputInfluenceGrounded = 1.0f;
-    [SerializeField] private float inputInfluenceInAir = 0.7f;
-    [SerializeField] private float influenceUpdateRate = 1.0f;
+    [SerializeField] private float _inputInfluenceGrounded = 1.0f;
+    [SerializeField] private float _inputInfluenceInAir = 0.7f;
+    [SerializeField] private float _influenceUpdateRate = 1.0f;
 
     [Space]
-    [SerializeField] private float downForceRate = 6f;
-    [SerializeField] private float downForceTerminal = 4f;
-    [SerializeField] private float downForce = 0;
+    [SerializeField] private float _downForceRate = 6f;
+    [SerializeField] private float _downForceTerminal = 4f;
+    private float _downForce = 0;
 
     private MovementComponent _moveComponent;
     private Rigidbody _rb;
@@ -51,39 +51,39 @@ public class OnGround : MonoBehaviour
     {
         //Raycast to check for if grounded
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, isGroundedCheckDistance))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, _isGroundedCheckDistance))
         {
             _moveComponent.OnGround = true;
-            lastPoint = hit.point;
+            _lastPoint = hit.point;
 
             CheckFellLanding();
-            terminalFallingTimer = 0;
+            _terminalFallingTimer = 0;
         }
         else
         {
             _moveComponent.OnGround = false;
 
-            if (downForce >= downForceTerminal)
-                terminalFallingTimer += Time.deltaTime;
+            if (_downForce >= _downForceTerminal)
+                _terminalFallingTimer += Time.deltaTime;
         }
     }
 
     private void CheckFellTeleport()
     {
         //If falling for max time, teleport back to last place on ground
-        if (terminalFallingTimer >= fallMaxTime)
+        if (_terminalFallingTimer >= _fallMaxTime)
         {
             _rb.velocity = Vector3.zero;
-            transform.position = lastPoint + new Vector3(0, respawnYOffset, 0);
-            terminalFallingTimer = 0;
+            transform.position = _lastPoint + new Vector3(0, _respawnYOffset, 0);
+            _terminalFallingTimer = 0;
         }
     }
 
     private void CheckFellLanding()
     {
-        if (terminalFallingTimer >= fallDamageStartTime)
+        if (_terminalFallingTimer >= _fallDamageStartTime)
         {
-            float fallPercent = (terminalFallingTimer - fallDamageStartTime) / (fallMaxTime - fallDamageStartTime);
+            float fallPercent = (_terminalFallingTimer - _fallDamageStartTime) / (_fallMaxTime - _fallDamageStartTime);
             //int fallDamage = Mathf.RoundToInt(fallDamageMax * fallPercent + fallDamageMin * (1 - fallPercent));
         }
     }
@@ -93,21 +93,21 @@ public class OnGround : MonoBehaviour
         //Change the amount of influence player input has on the player movement based on wether he is grounded or not
         if (_moveComponent.OnGround)
         {
-            _moveComponent.inputInfluence = inputInfluenceGrounded;
-            downForce = 0;
+            _moveComponent.inputInfluence = _inputInfluenceGrounded;
+            _downForce = 0;
         }
         else
         {
-            _moveComponent.inputInfluence = inputInfluenceInAir;
+            _moveComponent.inputInfluence = _inputInfluenceInAir;
 
             //Add force downwards which adds ontop of gravity
-            if (downForce < downForceTerminal)
-                downForce += downForceRate * Time.deltaTime;
+            if (_downForce < _downForceTerminal)
+                _downForce += _downForceRate * Time.deltaTime;
             else
-                downForce = downForceTerminal;
+                _downForce = _downForceTerminal;
         }
 
-        _rb.AddForce(Vector3.down * Mathf.Pow(downForce, 2));
+        _rb.AddForce(Vector3.down * Mathf.Pow(_downForce, 2));
     }
 
     private void LerpInputInfluence(float pTarget)
