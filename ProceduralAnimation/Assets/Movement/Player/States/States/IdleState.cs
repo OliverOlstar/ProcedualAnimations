@@ -16,6 +16,7 @@ public class IdleState : BaseState
     {
         Debug.Log("IdleState: Enter");
         stateController._movementComponent.disableMovement = false;
+        //stateController._Camera
     }
 
     public override void Exit()

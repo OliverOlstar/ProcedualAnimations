@@ -15,8 +15,6 @@ public class MovementComponent : MonoBehaviour
     public float inputInfluence = 1.0f;
 
     [Header("Jump")]
-    public float jumpDistance = 5;
-    public float jumpDuration = 5;
     public float jumpForceUp = 4;
 
     public bool OnGround;
@@ -61,9 +59,10 @@ public class MovementComponent : MonoBehaviour
         move = move.normalized * Time.deltaTime * moveAcceleration * inputInfluence;
 
         //Moving the player
-        //Debug.Log(new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude);
         if (new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude < maxSpeed)
             _rb.AddForce(move);
+
+        //_stateController._modelController.acceleration = new Vector3(moveInput.y, 0, moveInput.x);
 
         if (move.magnitude != 0)
             _stateController.LastMoveDirection = new Vector2(move.x, move.z).normalized;

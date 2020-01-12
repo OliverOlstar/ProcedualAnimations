@@ -648,7 +648,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 9425f13b1711ac64d85d6752a71cd215,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.7536867
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9425f13b1711ac64d85d6752a71cd215,
         type: 3}
@@ -658,7 +658,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 9425f13b1711ac64d85d6752a71cd215,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.6572339
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9425f13b1711ac64d85d6752a71cd215,
         type: 3}
@@ -673,7 +673,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 9425f13b1711ac64d85d6752a71cd215,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -97.82201
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9425f13b1711ac64d85d6752a71cd215,
         type: 3}
@@ -1119,6 +1119,7 @@ MonoBehaviour:
   _dodgeComponent: {fileID: 0}
   _powerComponent: {fileID: 0}
   _hitboxComponent: {fileID: 0}
+  _modelController: {fileID: 0}
   _playerAttributes: {fileID: 0}
   _animHandler: {fileID: 0}
   _rb: {fileID: 0}
@@ -1454,7 +1455,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acc15f9048ebce41924b469637e2098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationDampening: 5
+  _rotationDampening: 10
+  _rotationDeadzone: 0.1
+  _tiltingDampening: 10
+  _tiltingMult: 30
+  acceleration: {x: 0, y: 0, z: 0}
+  accelerationMag: 0
 --- !u!1 &1914328081
 GameObject:
   m_ObjectHideFlags: 0
