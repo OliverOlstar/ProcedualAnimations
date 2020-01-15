@@ -15,6 +15,7 @@ MonoBehaviour:
   UpOffset: 0.43
   LeftOffset: 0
   Distance: 5.8
+  SensitivityMult: 1
   TurnDampening: 20
   MaxY: 70
   MinY: -35
