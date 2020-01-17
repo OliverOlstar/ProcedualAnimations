@@ -14,7 +14,6 @@ public class ModelMovement : MonoBehaviour
     public float accelerationMag;
     private Vector3 previousVelocity;
 
-    // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponentInParent<Rigidbody>();
@@ -24,10 +23,10 @@ public class ModelMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        Vector3 eulerAngles = transform.eulerAngles;
+        Vector3 eulerAngles = transform.parent.localEulerAngles;
 
         Vector3 velocity = _rb.velocity;
-        Vector3 horizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
+        Vector3 horizontalVelocity = new Vector3(velocity.z, 0, -velocity.x);
 
         Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + horizontalVelocity, Color.red);
         
@@ -48,10 +47,10 @@ public class ModelMovement : MonoBehaviour
 
         eulerAngles = new Vector3(horizontalAngle, eulerAngles.y, verticalAngle);
 
-        //// Facing Velocity
-        if (horizontalVelocity.magnitude > _rotationDeadzone)
-            eulerAngles.y = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(horizontalVelocity, Vector3.up), Time.deltaTime * _rotationDampening).eulerAngles.y;
+        transform.parent.localEulerAngles = eulerAngles;
 
-        transform.eulerAngles = eulerAngles;
+        // Facing Velocity
+        if (horizontalVelocity.magnitude > _rotationDeadzone)
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(horizontalVelocity, Vector3.up), Time.deltaTime * _rotationDampening);
     }
 }

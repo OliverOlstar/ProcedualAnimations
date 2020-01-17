@@ -54,7 +54,8 @@ public class MovementComponent : MonoBehaviour
     {
         //Move Vector
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        move = Camera.main.transform.TransformDirection(move);
+        if (Camera.main != null)
+            move = Camera.main.transform.TransformDirection(move);
         move.y = 0;
         move = move.normalized * Time.deltaTime * moveAcceleration * inputInfluence;
 
@@ -62,7 +63,7 @@ public class MovementComponent : MonoBehaviour
         if (new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude < maxSpeed)
             _rb.AddForce(move);
 
-        //_stateController._modelController.acceleration = new Vector3(moveInput.y, 0, moveInput.x);
+        _stateController._modelController.acceleration = move.normalized;
 
         if (move.magnitude != 0)
             _stateController.LastMoveDirection = new Vector2(move.x, move.z).normalized;
