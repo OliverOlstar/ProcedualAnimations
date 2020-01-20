@@ -17,7 +17,7 @@ public class MovementComponent : MonoBehaviour
     [Header("Jump")]
     public float jumpForceUp = 4;
 
-    public bool OnGround;
+    public bool onGround;
 
     public bool disableMovement = false;
 
@@ -42,7 +42,7 @@ public class MovementComponent : MonoBehaviour
 
     private void Jump()
     {
-        if (OnGround && disableMovement == false)
+        if (onGround && disableMovement == false)
         {
             //Add force
             _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
@@ -64,6 +64,7 @@ public class MovementComponent : MonoBehaviour
             _rb.AddForce(move);
 
         _stateController._modelController.acceleration = move.normalized;
+        _stateController._modelController.onGround = onGround;
 
         if (move.magnitude != 0)
             _stateController.LastMoveDirection = new Vector2(move.x, move.z).normalized;

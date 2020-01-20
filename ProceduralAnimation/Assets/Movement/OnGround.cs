@@ -53,7 +53,7 @@ public class OnGround : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, _isGroundedCheckDistance))
         {
-            _moveComponent.OnGround = true;
+            _moveComponent.onGround = true;
             _lastPoint = hit.point;
 
             CheckFellLanding();
@@ -61,7 +61,7 @@ public class OnGround : MonoBehaviour
         }
         else
         {
-            _moveComponent.OnGround = false;
+            _moveComponent.onGround = false;
 
             if (_downForce >= _downForceTerminal)
                 _terminalFallingTimer += Time.deltaTime;
@@ -91,7 +91,7 @@ public class OnGround : MonoBehaviour
     public void FallingForce()
     {
         //Change the amount of influence player input has on the player movement based on wether he is grounded or not
-        if (_moveComponent.OnGround)
+        if (_moveComponent.onGround)
         {
             _moveComponent.inputInfluence = _inputInfluenceGrounded;
             _downForce = 0;

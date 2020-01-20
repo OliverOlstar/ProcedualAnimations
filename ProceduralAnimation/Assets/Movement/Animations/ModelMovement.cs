@@ -18,6 +18,14 @@ public class ModelMovement : MonoBehaviour
     public float accelerationMag;
 
     [SerializeField] private float _steppingMult = 1;
+    [SerializeField] private float _fallingAnimSpeed = 1;
+    [SerializeField] private float _jumpingTransitionWidth = 1;
+    public bool onGround = false;
+
+    private float steppingWeight;
+    private float jumpingWeight;
+
+    [SerializeField] private float _weightChangeDampening = 1;
 
 
     void Start()
@@ -30,10 +38,46 @@ public class ModelMovement : MonoBehaviour
     {
         _horizontalVelocity = new Vector3(_rb.velocity.z, 0, -_rb.velocity.x);
 
+        UpdateWeights();
+        LerpWeights();
+
         FacingSelf();
         TiltingParent();
 
         SteppingAnim();
+        JumpingAnim();
+    }
+
+    private void UpdateWeights()
+    {
+        if (onGround)
+        {
+            steppingWeight = 1;
+            jumpingWeight = 0;
+        }
+        else
+        {
+            steppingWeight = 0;
+            jumpingWeight = 1;
+        }
+    }
+
+    private void LerpWeights()
+    {
+        _anim.SetFloat("Stepping Weight", Mathf.Lerp(_anim.GetFloat("Stepping Weight"), steppingWeight, _weightChangeDampening * Time.deltaTime));
+        _anim.SetFloat("Jumping Weight", Mathf.Lerp(_anim.GetFloat("Jumping Weight"), jumpingWeight, _weightChangeDampening * Time.deltaTime));
+    }
+
+    private void JumpingAnim()
+    {
+        // Jumping Speed
+        _anim.SetFloat("Jumping Speed", _rb.velocity.y / _jumpingTransitionWidth);
+
+        // Falling Progress
+        float progress = _anim.GetFloat("Falling Progress") + (Time.fixedDeltaTime * _fallingAnimSpeed);
+        if (progress >= 1) progress -= 1;
+
+        _anim.SetFloat("Falling Progress", progress);
     }
 
     private void SteppingAnim()

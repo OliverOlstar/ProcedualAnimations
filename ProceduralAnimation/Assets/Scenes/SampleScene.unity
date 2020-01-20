@@ -412,7 +412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479724024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5000019, z: 0.000015258789}
+  m_LocalPosition: {x: 0, y: 2.09, z: 0.000015258789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1271352683}
@@ -428,8 +428,8 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 10e1c9933b7b3974f9c9a5199f3d77ae, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.65
-  m_Height: 1.5
+  m_Radius: 0.9
+  m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &544333412
@@ -1261,6 +1261,10 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   accelerationMag: 0
   _steppingMult: 0.65
+  _fallingAnimSpeed: 2
+  _jumpingTransitionWidth: 2.5
+  onGround: 0
+  _weightChangeDampening: 10
 --- !u!1 &1271352680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,7 +1275,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1271352683}
   - component: {fileID: 1271352682}
-  - component: {fileID: 1271352681}
   - component: {fileID: 1271352684}
   - component: {fileID: 1271352688}
   - component: {fileID: 1271352687}
@@ -1287,19 +1290,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1271352681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1271352680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffaea6a16afe3b2439550c8127943298, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!135 &1271352682
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1311,8 +1301,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!4 &1271352683
 Transform:
   m_ObjectHideFlags: 0
@@ -1320,7 +1310,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1271352680}
-  m_LocalRotation: {x: -0, y: 0.05732189, z: -0, w: 0.99835575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -169.66, y: 11.4, z: -190.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1329,7 +1319,7 @@ Transform:
   - {fileID: 82726719}
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 6.5720005, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1271352684
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1362,7 +1352,7 @@ MonoBehaviour:
   maxSpeed: 6
   inputInfluence: 1
   jumpForceUp: 10
-  OnGround: 1
+  onGround: 0
   disableMovement: 0
   moveInput: {x: 0, y: 0}
 --- !u!114 &1271352686
