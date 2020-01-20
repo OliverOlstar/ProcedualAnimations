@@ -9,7 +9,8 @@ BlendTree:
   m_Name: Jump Blend
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: a550872ed7e49624ba915f835fc2383e, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: 3e78e371cb70dbf4f84e699e81f7c159,
+      type: 3}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -17,14 +18,14 @@ BlendTree:
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 68208c91d7cacf442aef40974e2bf0cc, type: 2}
+    m_Motion: {fileID: 537662465610512953}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
-  m_BlendParameter: Vertical Velocity
+  m_BlendParameter: Jumping Speed
   m_BlendParameterY: Blend
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -111,14 +112,6 @@ BlendTree:
     m_DirectBlendParameter: Crouching Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 874963769478330794}
-    m_Threshold: 0.95
-    m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Crouching Weight
-    m_Mirror: 0
-  - serializedVersion: 2
     m_Motion: {fileID: 1601509206185319182}
     m_Threshold: 0.95
     m_Position: {x: 0, y: 0}
@@ -144,7 +137,7 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: Stepping Weight
     m_Type: 1
-    m_DefaultFloat: 1
+    m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -178,6 +171,18 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Jumping Speed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Falling Progress
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -191,6 +196,39 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!206 &537662465610512953
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Fallling Blend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: 0b9a1d09287678e40b285a15fc625b92,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: 49c8168530992554a9b7cb2456004946,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Falling Progress
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!206 &874963769478330794
 BlendTree:
   m_ObjectHideFlags: 1
@@ -255,7 +293,8 @@ BlendTree:
   m_Name: Walking Blend
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 83ab49f14f988c34f9281d0731b5702b, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: e05f6832eb824eb41a83adac83ece117,
+      type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -263,7 +302,8 @@ BlendTree:
     m_DirectBlendParameter: Crouching Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: e0abe2903f3752344837ce07b36f7cac, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: d218a0a4e6f4004408331787c387d892,
+      type: 3}
     m_Threshold: 0.25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -271,7 +311,8 @@ BlendTree:
     m_DirectBlendParameter: Crouching Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 746ddeed7929f3f40b82872f8b41cf13, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: 47d8c517074653245a28f287a40f5d98,
+      type: 3}
     m_Threshold: 0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -279,7 +320,8 @@ BlendTree:
     m_DirectBlendParameter: Crouching Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 279ce82b9656caa488db6770b86d4a6f, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: c8a123dafb2e66a4a87b84cea45184ff,
+      type: 3}
     m_Threshold: 0.75
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -287,7 +329,8 @@ BlendTree:
     m_DirectBlendParameter: Crouching Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 83ab49f14f988c34f9281d0731b5702b, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: e05f6832eb824eb41a83adac83ece117,
+      type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -325,7 +368,8 @@ BlendTree:
   m_Name: Weight Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: badd3794eaa77be42a9c5fde3690c6c7, type: 2}
+    m_Motion: {fileID: 1827226128182048838, guid: 4021b1683905dd443b243ea88e07df1a,
+      type: 3}
     m_Threshold: 0
     m_Position: {x: 0.86, y: -0.37}
     m_TimeScale: 1

@@ -12,6 +12,8 @@ public class ModelMovement : MonoBehaviour
     [SerializeField] private float _tiltingDampening = 1;
     [SerializeField] private float _tiltingMult = 5;
 
+    private Vector3 _horizontalVelocity;
+
     public Vector3 acceleration;
     public float accelerationMag;
 
@@ -26,6 +28,8 @@ public class ModelMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        _horizontalVelocity = new Vector3(_rb.velocity.z, 0, -_rb.velocity.x);
+
         FacingSelf();
         TiltingParent();
 
@@ -34,37 +38,40 @@ public class ModelMovement : MonoBehaviour
 
     private void SteppingAnim()
     {
-        float progress = _anim.GetFloat("Stepping Progress") + (Time.fixedDeltaTime * _rb.velocity.magnitude * _steppingMult);
+        // Increase Stepping Animation
+        float progress = _anim.GetFloat("Stepping Progress") + (Time.fixedDeltaTime * _horizontalVelocity.magnitude * _steppingMult);
         if (progress >= 1) progress -= 1;
 
+        // Set Anim Stepping values
         _anim.SetFloat("Stepping Progress", progress);
-        _anim.SetFloat("Stepping Speed", _rb.velocity.magnitude / GetComponentInParent<MovementComponent>().maxSpeed);
+        _anim.SetFloat("Stepping Speed", _horizontalVelocity.magnitude / GetComponentInParent<MovementComponent>().maxSpeed);
     }
 
     private void FacingSelf()
     {
-        Vector3 horizontalVelocity = new Vector3(_rb.velocity.z, 0, -_rb.velocity.x);
-
         // Facing Velocity
-        if (horizontalVelocity.magnitude > _rotationDeadzone)
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(horizontalVelocity, Vector3.up), Time.deltaTime * _rotationDampening);
+        if (_horizontalVelocity.magnitude > _rotationDeadzone)
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(_horizontalVelocity, Vector3.up), Time.deltaTime * _rotationDampening);
     }
 
     private void TiltingParent()
     {
+        // Save eularAngle
         Vector3 eulerAngles = transform.parent.localEulerAngles;
 
-        // Tilting
+        // Tilting alter values to prevent jumping from 0 to 360
         if (eulerAngles.x > 180)
             eulerAngles.x = eulerAngles.x - 360;
         if (eulerAngles.z > 180)
             eulerAngles.z = eulerAngles.z - 360;
 
+        // Lerp tilting values
         float horizontalAngle = Mathf.Lerp(eulerAngles.x, -acceleration.x * _tiltingMult, Time.deltaTime * _tiltingDampening);
         float verticalAngle = Mathf.Lerp(eulerAngles.z, -acceleration.z * _tiltingMult, Time.deltaTime * _tiltingDampening);
-
+        
         eulerAngles = new Vector3(horizontalAngle, eulerAngles.y, verticalAngle);
 
+        // Update eularAngle
         transform.parent.localEulerAngles = eulerAngles;
     }
 
