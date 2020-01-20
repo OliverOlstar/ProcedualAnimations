@@ -52,20 +52,28 @@ public class ModelMovement : MonoBehaviour
     {
         if (onGround)
         {
-            steppingWeight = 1;
+            steppingWeight = 0.5f;
             jumpingWeight = 0;
         }
         else
         {
             steppingWeight = 0;
-            jumpingWeight = 1;
+            jumpingWeight = 0.5f;
         }
     }
 
     private void LerpWeights()
     {
-        _anim.SetFloat("Stepping Weight", Mathf.Lerp(_anim.GetFloat("Stepping Weight"), steppingWeight, _weightChangeDampening * Time.deltaTime));
-        _anim.SetFloat("Jumping Weight", Mathf.Lerp(_anim.GetFloat("Jumping Weight"), jumpingWeight, _weightChangeDampening * Time.deltaTime));
+        // Get total weight
+        float totalWeight = steppingWeight + jumpingWeight;
+
+        // Prevent Total Weight from going past 1
+        float steppingWeightAvg = steppingWeight / totalWeight;
+        float jumpingWeightAvg = jumpingWeight / totalWeight;
+
+        // Lerp weight values
+        _anim.SetFloat("Stepping Weight", Mathf.Lerp(_anim.GetFloat("Stepping Weight"), steppingWeightAvg, _weightChangeDampening * Time.deltaTime));
+        _anim.SetFloat("Jumping Weight", Mathf.Lerp(_anim.GetFloat("Jumping Weight"), jumpingWeightAvg, _weightChangeDampening * Time.deltaTime));
     }
 
     private void JumpingAnim()
