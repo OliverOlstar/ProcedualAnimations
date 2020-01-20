@@ -5,6 +5,8 @@ using UnityEngine;
 public class ModelMovement : MonoBehaviour
 {
     private Rigidbody _rb;
+    private Animator _anim;
+
     [SerializeField] private float _rotationDampening = 1;
     [SerializeField] private float _rotationDeadzone = 0.02f;
     [SerializeField] private float _tiltingDampening = 1;
@@ -12,29 +14,45 @@ public class ModelMovement : MonoBehaviour
 
     public Vector3 acceleration;
     public float accelerationMag;
-    private Vector3 previousVelocity;
+
+    [SerializeField] private float _steppingMult = 1;
+
 
     void Start()
     {
         _rb = GetComponentInParent<Rigidbody>();
-        previousVelocity = Vector3.zero;
+        _anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
+    {
+        FacingSelf();
+        TiltingParent();
+
+        SteppingAnim();
+    }
+
+    private void SteppingAnim()
+    {
+        float progress = _anim.GetFloat("Stepping Progress") + (Time.fixedDeltaTime * _rb.velocity.magnitude * _steppingMult);
+        if (progress >= 1) progress -= 1;
+
+        _anim.SetFloat("Stepping Progress", progress);
+        _anim.SetFloat("Stepping Speed", _rb.velocity.magnitude / GetComponentInParent<MovementComponent>().maxSpeed);
+    }
+
+    private void FacingSelf()
+    {
+        Vector3 horizontalVelocity = new Vector3(_rb.velocity.z, 0, -_rb.velocity.x);
+
+        // Facing Velocity
+        if (horizontalVelocity.magnitude > _rotationDeadzone)
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(horizontalVelocity, Vector3.up), Time.deltaTime * _rotationDampening);
+    }
+
+    private void TiltingParent()
     {
         Vector3 eulerAngles = transform.parent.localEulerAngles;
-
-        Vector3 velocity = _rb.velocity;
-        Vector3 horizontalVelocity = new Vector3(velocity.z, 0, -velocity.x);
-
-        Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + horizontalVelocity, Color.red);
-        
-        //acceleration = horizontalVelocity - previousVelocity;
-        //previousVelocity = horizontalVelocity;
-
-        Debug.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + acceleration, Color.green);
-        //accelerationMag = acceleration.magnitude;
 
         // Tilting
         if (eulerAngles.x > 180)
@@ -48,9 +66,10 @@ public class ModelMovement : MonoBehaviour
         eulerAngles = new Vector3(horizontalAngle, eulerAngles.y, verticalAngle);
 
         transform.parent.localEulerAngles = eulerAngles;
+    }
 
-        // Facing Velocity
-        if (horizontalVelocity.magnitude > _rotationDeadzone)
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.LookRotation(horizontalVelocity, Vector3.up), Time.deltaTime * _rotationDampening);
+    private float easeInOutSine(float pTime, float pStartValue, float pChangeInValue, float pDuration)
+    {
+        return -pChangeInValue / 2 * (Mathf.Cos(Mathf.PI * pTime / pDuration) - 1) + pStartValue;
     }
 }
