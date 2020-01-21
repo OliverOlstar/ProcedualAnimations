@@ -68,7 +68,7 @@ AvatarMask:
   - m_Path: JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle/JNT_R_Foot/JNT_R_Toe
     m_Weight: 1
   - m_Path: JNT_Master/JNT_Hips/JNT_Tail
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: JNT_Master/JNT_Hips/JNT_Tail/JNT_Tail1
     m_Weight: 0
   - m_Path: JNT_Master/JNT_Hips/JNT_Tail/JNT_Tail1/JNT_Tail2
