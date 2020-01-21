@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3570814472749657827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715850186469610681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8102439dcbcc64e9b356ee0241119a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGround: 0
+  acceleration: {x: 0, y: 0, z: 0}
+--- !u!114 &4454225938556683101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715850186469610681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b135975d9f46604ba998397074762fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stepWeight: 0
+  jumpWeight: 0
+  crouchWeight: 0
+  _weightChangeDampening: 10
+  _weightChangeDeadzone: 0.01
 --- !u!114 &6237853051468593737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16,13 +47,22 @@ MonoBehaviour:
   _rotationDeadzone: 0.2
   _tiltingDampening: 8
   _tiltingMult: 8
-  acceleration: {x: 0, y: 0, z: 0}
-  accelerationMag: 0
-  _steppingMult: 0.65
-  _fallingAnimSpeed: 2
-  _jumpingTransitionWidth: 2.5
-  onGround: 0
-  _weightChangeDampening: 10
+--- !u!114 &8282192026272605591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715850186469610681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34fdb3d3058ea048bcc96ebd32f747d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _steppingMult: 3
+  _fallingAnimSpeed: 1
+  _jumpingTransitionWidth: 2
+  _stepProgress: 0
 --- !u!1 &6237853049773769088
 GameObject:
   m_ObjectHideFlags: 0

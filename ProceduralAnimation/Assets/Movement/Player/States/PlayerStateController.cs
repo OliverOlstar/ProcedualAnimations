@@ -28,7 +28,7 @@ public class PlayerStateController : MonoBehaviour
     private PlayerLockOnScript _lockOnComponent;
     [HideInInspector] public PlayerPowerHandler _powerComponent;
     [HideInInspector] public PlayerHitbox _hitboxComponent;
-    [HideInInspector] public ModelMovement _modelController;
+    [HideInInspector] public ModelController _modelController;
 
     //[HideInInspector] public PlayerRespawn _respawnComponent;
     [HideInInspector] public PlayerAttributes _playerAttributes;
@@ -48,7 +48,7 @@ public class PlayerStateController : MonoBehaviour
         _powerComponent = GetComponent<PlayerPowerHandler>();
         _hitboxComponent = GetComponentInChildren<PlayerHitbox>();
         //_hitboxComponent.gameObject.SetActive(false);
-        _modelController = GetComponentInChildren<ModelMovement>();
+        _modelController = GetComponentInChildren<ModelController>();
 
         //_respawnComponent = GetComponent<PlayerRespawn>();
         _playerAttributes = GetComponent<PlayerAttributes>();

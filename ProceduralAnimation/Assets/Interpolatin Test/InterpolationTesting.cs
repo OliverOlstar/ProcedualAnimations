@@ -14,6 +14,9 @@ public class InterpolationTesting : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float jumpWeight = 0;
     [SerializeField] [Range(0, 1)] private float crouchWeight = 0;
 
+    [Space]
+    [SerializeField] [Range(0,1)] private float stepProgress = 0;
+
     [SerializeField] private float _weightChangeDampening = 10;
     [SerializeField] private float _weightChangeDeadzone = 0.1f;
 
@@ -68,17 +71,22 @@ public class InterpolationTesting : MonoBehaviour
     private void SteppingAnim()
     {
         // Increase Stepping Animation
-        float progress = _anim.GetFloat("Stepping Progress") + (Time.fixedDeltaTime * _horizontalVelocity.magnitude * _steppingMult);
-        if (progress >= 1) progress -= 1;
+        stepProgress += Time.fixedDeltaTime * _steppingMult;
+        if (stepProgress >= 1) 
+            stepProgress -= 1;
+
+        float secondStep = (stepProgress <= 0.5f) ? 0 : 0.5f;
 
         // Set Anim Stepping values
-        _anim.SetFloat("Stepping Progress", progress);
+        _anim.SetFloat("Stepping Progress", easeInOutSine((stepProgress - secondStep) * 2, 0.25f, 0.5f) + secondStep);
         _anim.SetFloat("Stepping Speed", _horizontalVelocity.magnitude);
         //_anim.SetVector("Stepping Relative Direction", _horizontalVelocity - new Vector2(transform.forward.x, transform.forward.z));
     }
 
-    private float easeInOutSine(float pTime, float pStartValue, float pChangeInValue, float pDuration)
+    //private void IncreaseProgress(string pProgress,)
+
+    private float easeInOutSine(float pTime, float pChangeInValue, float pDuration)
     {
-        return -pChangeInValue / 2 * (Mathf.Cos(Mathf.PI * pTime / pDuration) - 1) + pStartValue;
+        return -pChangeInValue * Mathf.Cos((Mathf.PI / 2) * (pTime / pDuration)) + pChangeInValue;
     }
 }
