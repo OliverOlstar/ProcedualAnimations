@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ModelWeights : MonoBehaviour
 {
+    private ModelController _modelController;
     private Animator _anim;
 
     [SerializeField] [Range(0, 1)] private float stepWeight = 0;
@@ -14,14 +15,15 @@ public class ModelWeights : MonoBehaviour
     [SerializeField] private float _weightChangeDampening = 1;
     [SerializeField] private float _weightChangeDeadzone = 0.1f;
 
-    public void Init(Animator pAnim)
+    public void Init(ModelController pController, Animator pAnim)
     {
+        _modelController = pController;
         _anim = pAnim;
     }
 
-    public void UpdateWeights(bool pOnGround)
+    public void UpdateWeights()
     {
-        if (pOnGround)
+        if (_modelController.onGround)
         {
             stepWeight = 1f;
             jumpWeight = 0;
@@ -55,7 +57,7 @@ public class ModelWeights : MonoBehaviour
         if (currentValue == pTargetValue) return;
 
         // Lerp value towards target
-        currentValue = Mathf.Lerp(currentValue, pTargetValue, _weightChangeDampening * Time.deltaTime);
+        currentValue = Mathf.Lerp(currentValue, pTargetValue, _weightChangeDampening * Time.deltaTime * _modelController.animSpeed);
 
         // If in deadzone just snap to value
         if (Mathf.Abs(currentValue - pTargetValue) < _weightChangeDeadzone)

@@ -7,42 +7,44 @@ public class ModelController : MonoBehaviour
     private Rigidbody _rb;
     private Animator _anim;
 
-    public bool onGround = false;
-    public Vector3 acceleration;
+    [HideInInspector] public bool onGround = false;
+    [HideInInspector] public Vector3 acceleration;
+    [Range(0, 1)] public float animSpeed = 1;
 
     private ModelWeights _modelWeights;
     private ModelAnimations _modelAnimation;
     private ModelMovement _modelMovement;
 
-    private Vector3 _horizontalVelocity;
+    [HideInInspector] public Vector3 horizontalVelocity;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Get Model Components
         _modelWeights = GetComponent<ModelWeights>();
         _modelAnimation = GetComponent<ModelAnimations>();
         _modelMovement = GetComponent<ModelMovement>();
 
+        // Get Other Components
         _rb = GetComponentInParent<Rigidbody>();
         _anim = GetComponent<Animator>();
 
-        _modelWeights.Init(_anim);
-        _modelAnimation.Init(_rb, _anim);
-        _modelMovement.Init(_anim);
+        // Setup Components
+        _modelWeights.Init(this, _anim);
+        _modelAnimation.Init(this, _rb, _anim);
+        _modelMovement.Init(this, _anim);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        _horizontalVelocity = new Vector3(_rb.velocity.z, 0, -_rb.velocity.x);
+        horizontalVelocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
 
-        _modelWeights.UpdateWeights(onGround);
+        _modelWeights.UpdateWeights();
         _modelWeights.LerpWeights();
 
-        _modelMovement.TiltingParent(acceleration);
-        _modelMovement.FacingSelf(_horizontalVelocity);
+        _modelMovement.TiltingParent();
+        _modelMovement.FacingSelf();
 
-        _modelAnimation.SteppingAnim(_horizontalVelocity);
+        _modelAnimation.SteppingAnim();
         _modelAnimation.JumpingAnim();
     }
 }

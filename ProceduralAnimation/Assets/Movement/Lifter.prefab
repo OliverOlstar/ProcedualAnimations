@@ -46,7 +46,8 @@ MonoBehaviour:
   _rotationDampening: 7
   _rotationDeadzone: 0.2
   _tiltingDampening: 8
-  _tiltingMult: 8
+  _tiltingMult: 9
+  DisableRotation: 0
 --- !u!114 &8282192026272605591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +63,6 @@ MonoBehaviour:
   _steppingMult: 3
   _fallingAnimSpeed: 1
   _jumpingTransitionWidth: 2
-  _stepProgress: 0
 --- !u!1 &6237853049773769088
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +347,7 @@ MonoBehaviour:
   moveAcceleration: 2200
   maxSpeed: 6
   inputInfluence: 1
-  jumpForceUp: 10
+  jumpForceUp: 20
   onGround: 0
   disableMovement: 0
   moveInput: {x: 0, y: 0}
