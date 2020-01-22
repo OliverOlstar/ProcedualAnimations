@@ -80,7 +80,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -3621921867094212462}
     m_Threshold: 0
-    m_Position: {x: 1, y: 0}
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Stepping Weight
@@ -88,13 +88,13 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7513574962260760204}
     m_Threshold: 1
-    m_Position: {x: -1, y: 0}
+    m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   m_BlendParameter: Stepping Direction X
-  m_BlendParameterY: Stepping Direction Y
+  m_BlendParameterY: Stepping Direction Z
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -275,7 +275,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Stepping Direction Y
+  - m_Name: Stepping Direction Z
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -472,7 +472,7 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlendTree
+  m_Name: Stepping Backward Blend
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 1827226128182048838, guid: e05f6832eb824eb41a83adac83ece117,

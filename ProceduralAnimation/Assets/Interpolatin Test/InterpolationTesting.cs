@@ -20,6 +20,8 @@ public class InterpolationTesting : MonoBehaviour
     [SerializeField] private float _weightChangeDampening = 10;
     [SerializeField] private float _weightChangeDeadzone = 0.1f;
 
+    [SerializeField] private SOGraph _steppingGraph;
+
     void Start()
     {
         _anim = GetComponent<Animator>();
@@ -76,17 +78,27 @@ public class InterpolationTesting : MonoBehaviour
             stepProgress -= 1;
 
         float secondStep = (stepProgress <= 0.5f) ? 0 : 0.5f;
+        float time = (stepProgress - secondStep) * 2;
+        Debug.Log(time);
 
         // Set Anim Stepping values
-        _anim.SetFloat("Stepping Progress", easeInOutSine((stepProgress - secondStep) * 2, 0.25f, 0.5f) + secondStep);
+        _anim.SetFloat("Stepping Progress", GetCatmullRomPosition(time, _steppingGraph).y + secondStep);
         _anim.SetFloat("Stepping Speed", _horizontalVelocity.magnitude);
-        //_anim.SetVector("Stepping Relative Direction", _horizontalVelocity - new Vector2(transform.forward.x, transform.forward.z));
+        _anim.SetFloat("Stepping Direction X", 1);
     }
 
-    //private void IncreaseProgress(string pProgress,)
-
-    private float easeInOutSine(float pTime, float pChangeInValue, float pDuration)
+    private Vector2 GetCatmullRomPosition(float pTime, SOGraph pGraph)
     {
-        return -pChangeInValue * Mathf.Cos((Mathf.PI / 2) * (pTime / pDuration)) + pChangeInValue;
+        Vector2 startPoint = Vector2.zero;
+        Vector2 endPoint = new Vector2(1, pGraph.EndValue);
+
+        Vector2 a = 2f * startPoint;
+        Vector2 b = endPoint - pGraph.firstBender;
+        Vector2 c = 2f * pGraph.firstBender - 5f * startPoint + 4f * endPoint - pGraph.secondBender;
+        Vector2 d = -pGraph.firstBender + 3f * startPoint - 3f * endPoint + pGraph.secondBender;
+
+        Vector2 pos = 0.5f * (a + (b * pTime) + (c * pTime * pTime) + (d * pTime * pTime * pTime));
+
+        return pos;
     }
 }
