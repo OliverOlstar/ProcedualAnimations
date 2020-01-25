@@ -8,14 +8,21 @@ public class ModelAnimations : MonoBehaviour
     private Rigidbody _rb;
     private Animator _anim;
 
-    [SerializeField] private float _steppingMult = 1;
-    [SerializeField] private float _fallingAnimSpeed = 1;
-    [SerializeField] private float _jumpingTransitionWidth = 1;
+    [SerializeField] private float _stepMult = 1;
+    [SerializeField] private float _fallMult = 1;
+    [SerializeField] private float _attackLength = 1;
 
     private float _stepProgress = 0;
+    private float _fallProgress = 0;
+    private float _attackProgress = 0;
 
     [Header("Interpolation Graphs")]
     [SerializeField] private SOGraph _stepGraph;
+    [SerializeField] private SOGraph _fallGraph;
+    [SerializeField] private SOGraph _attackGraph;
+    
+    [Space]
+    [SerializeField] private float _jumpingTransitionWidth = 1;
 
     public void Init(ModelController pController, Rigidbody pRb, Animator pAnim)
     {
@@ -24,24 +31,35 @@ public class ModelAnimations : MonoBehaviour
         _anim = pAnim;
     }
 
+    public bool AttackingAnim()
+    {
+        // Increase Falling Animation
+        _attackProgress = Mathf.Min(1, _attackProgress + Time.fixedDeltaTime / _attackLength * _modelController.animSpeed);
+        _anim.SetFloat("Attacking Progress", GetCatmullRomPosition(_attackProgress, _attackGraph).y);
+         
+        return _attackProgress == 1;
+    }
+
+    public void ResetAttack()
+    {
+        _attackProgress = 0;
+        _anim.SetFloat("Attacking Progress", 0);
+    }
+
     public void JumpingAnim()
     {
         // Jumping Speed
         _anim.SetFloat("Jumping Speed", _rb.velocity.y / _jumpingTransitionWidth);
 
-        // Falling Progress
-        float progress = _anim.GetFloat("Falling Progress") + (Time.fixedDeltaTime * _fallingAnimSpeed * _modelController.animSpeed);
-        if (progress >= 1) progress -= 1;
-
-        _anim.SetFloat("Falling Progress", progress);
+        // Increase Falling Animation
+        _fallProgress = increaseProgress(_fallProgress, _fallMult);
+        _anim.SetFloat("Falling Progress", GetCatmullRomPosition(_fallProgress, _fallGraph).y);
     }
 
     public void SteppingAnim()
     {
         // Increase Stepping Animation
-        _stepProgress += Time.fixedDeltaTime * _steppingMult * _modelController.animSpeed;
-        if (_stepProgress >= 1)
-            _stepProgress -= 1;
+        _stepProgress = increaseProgress(_stepProgress, _stepMult);
 
         float secondStep = (_stepProgress <= 0.5f) ? 0 : 0.5f;
         float time = (_stepProgress - secondStep) * 2;
@@ -61,6 +79,15 @@ public class ModelAnimations : MonoBehaviour
         _anim.SetFloat("Stepping Direction Z", relDirection.z);
     }
 
+    private float increaseProgress(float pProgress, float pMult)
+    {
+        pProgress += Time.fixedDeltaTime * pMult * _modelController.animSpeed;
+        if (pProgress >= 1)
+            pProgress -= 1;
+
+        return pProgress;
+    }
+
     private Vector2 GetCatmullRomPosition(float pTime, SOGraph pGraph)
     {
         Vector2 startPoint = Vector2.zero;
@@ -75,4 +102,9 @@ public class ModelAnimations : MonoBehaviour
 
         return pos;
     }
+
+    //private float GetSpringDamper(float pTime, float pShrinkingValue, )
+    //{
+    //    return pShrinkingValue * Mathf.Sin(f * pTime);
+    //}
 }

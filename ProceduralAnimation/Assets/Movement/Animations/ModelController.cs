@@ -49,12 +49,22 @@ public class ModelController : MonoBehaviour
         _modelAnimation.JumpingAnim();
 
         if (_Attacking)
-            _modelAnimation.AttackingAnim();
+        {
+            if (_modelAnimation.AttackingAnim())
+                DoneAttack();
+        }
+    }
+
+    public void DoneAttack()
+    {
+        _Attacking = false;
+        _modelWeights.SetWeights(0, 0, 0, 0);
     }
 
     public void PlayAttack()
     {
         _Attacking = true;
         _modelWeights.SetWeights(0, 0, 0, 1);
+        _modelAnimation.ResetAttack();
     }
 }

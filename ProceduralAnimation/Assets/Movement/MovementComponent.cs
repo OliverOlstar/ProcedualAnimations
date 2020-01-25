@@ -17,18 +17,12 @@ public class MovementComponent : MonoBehaviour
     [Header("Jump")]
     public float jumpForceUp = 4;
 
-    public bool onGround;
-
     public bool disableMovement = false;
-
-    [HideInInspector] public Vector2 moveInput;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _stateController = GetComponent<PlayerStateController>();
-        _stateController.inputActions.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        _stateController.inputActions.Player.Jump.performed += ctx => Jump();
     }
 
     void Update()
@@ -40,9 +34,9 @@ public class MovementComponent : MonoBehaviour
         Move();
     }
 
-    private void Jump()
+    private void OnJump()
     {
-        if (onGround && disableMovement == false)
+        if (_stateController.onGround && disableMovement == false)
         {
             //Add force
             _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
@@ -53,7 +47,7 @@ public class MovementComponent : MonoBehaviour
     private void Move()
     {
         //Move Vector
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        Vector3 move = new Vector3(_stateController.moveInput.x, 0, _stateController.moveInput.y);
         if (Camera.main != null)
             move = Camera.main.transform.TransformDirection(move);
         move.y = 0;
@@ -64,7 +58,7 @@ public class MovementComponent : MonoBehaviour
             _rb.AddForce(move);
 
         _stateController._modelController.acceleration = move.normalized;
-        _stateController._modelController.onGround = onGround;
+        _stateController._modelController.onGround = _stateController.onGround;
 
         if (move.magnitude != 0)
             _stateController.LastMoveDirection = new Vector2(move.x, move.z).normalized;

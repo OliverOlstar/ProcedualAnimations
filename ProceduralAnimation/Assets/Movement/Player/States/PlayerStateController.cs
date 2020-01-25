@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStateController : MonoBehaviour
 {
@@ -13,13 +14,20 @@ public class PlayerStateController : MonoBehaviour
          */
 
     // On Ground
-    [HideInInspector] public bool OnGround = false;
+    [HideInInspector] public bool onGround = false;
     [HideInInspector] public bool Stunned = false;
     [HideInInspector] public float AttackStateReturnDelay = 0;
-    [HideInInspector] public float LastInputTime = 0;
-    [HideInInspector] public Vector2 LastMoveDirection = new Vector2(0,0);
 
-    [HideInInspector] public InputPlayer inputActions;
+    // Inputs
+    [HideInInspector] public float LastInputTime = 0;
+    [HideInInspector] public Vector2 mouseInput;
+    [HideInInspector] public Vector2 moveInput = new Vector2(0,0);
+    [HideInInspector] public Vector2 LastMoveDirection = new Vector2(0,0);
+    // 0 - Tapped, 1 - Held
+    [HideInInspector] public float dodgeInput = -1.0f;
+    [HideInInspector] public float lightAttackinput = -1.0f;
+    // 0 - Released, 1 - Pressed
+    [HideInInspector] public float heavyAttackinput = -1.0f;
 
     [Header("State Components")]
     [HideInInspector] public PlayerStateMachine _stateMachine;
@@ -28,18 +36,21 @@ public class PlayerStateController : MonoBehaviour
     private PlayerLockOnScript _lockOnComponent;
     [HideInInspector] public PlayerPowerHandler _powerComponent;
     [HideInInspector] public PlayerHitbox _hitboxComponent;
-    [HideInInspector] public ModelController _modelController;
+    //[HideInInspector] public ModelMovement _modelController;
 
-    //[HideInInspector] public PlayerRespawn _respawnComponent;
     [HideInInspector] public PlayerAttributes _playerAttributes;
-    [HideInInspector] public AnimHandler _animHandler;
+    [HideInInspector] public ModelController _modelController;
+    [HideInInspector] public PlayerCamera _playerCamera;
 
     [HideInInspector] public Rigidbody _rb;
     [HideInInspector] public Transform _Camera;
 
     //Reset Player
     [HideInInspector] public bool Respawn = false;
-    
+
+    //[HideInInspector] public InputPlayer inputs;
+    //[HideInInspector] public InputAction.CallbackContext ctx;
+
     void Awake()
     {
         _movementComponent = GetComponent<MovementComponent>();
@@ -48,28 +59,34 @@ public class PlayerStateController : MonoBehaviour
         _powerComponent = GetComponent<PlayerPowerHandler>();
         _hitboxComponent = GetComponentInChildren<PlayerHitbox>();
         //_hitboxComponent.gameObject.SetActive(false);
-        _modelController = GetComponentInChildren<ModelController>();
+        //_modelController = GetComponentInChildren<ModelMovement>();
 
         //_respawnComponent = GetComponent<PlayerRespawn>();
         _playerAttributes = GetComponent<PlayerAttributes>();
-        _animHandler = GetComponentInChildren<AnimHandler>();
+        _modelController = GetComponentInChildren<ModelController>();
 
         _stateMachine = GetComponent<PlayerStateMachine>();
         InitializeStateMachine();
 
         _rb = GetComponent<Rigidbody>();
-        inputActions = new InputPlayer();
-        //_Camera = Camera.main.transform;
+        _Camera = Camera.main.transform;
+        _playerCamera = _Camera.GetComponentInParent<PlayerCamera>();
     }
 
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
+    // List for inputs
+    private void OnCamera(InputValue ctx) => mouseInput = ctx.Get<Vector2>();
+    private void OnMovement(InputValue ctx) => moveInput = ctx.Get<Vector2>();
+    private void OnDodge(InputValue ctx) => dodgeInput = ctx.Get<float>();
+    private void OnLightAttack(InputValue ctx) => lightAttackinput = ctx.Get<float>();
+    private void OnHeavyAttack(InputValue ctx) => heavyAttackinput = ctx.Get<float>();
+    private void OnAnyInput() => LastInputTime = Time.time;
 
-    private void OnDisable()
+    private void FixedUpdate()
     {
-        inputActions.Disable();
+        if (moveInput.magnitude != 0 || mouseInput.magnitude != 0)
+        {
+            LastInputTime = Time.time;
+        }
     }
 
     void InitializeStateMachine()
@@ -86,4 +103,6 @@ public class PlayerStateController : MonoBehaviour
 
         _stateMachine.SetStates(states);
     }
+
+    
 }

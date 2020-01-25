@@ -232,9 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed25b8875ac855d4db7c3c31cd3b643f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graph: {fileID: 11400000, guid: d105e3352e7b8e94f82be1c6df8d9084, type: 2}
+  graph: {fileID: 11400000, guid: 75e55119c274554469b812e4c83bfa62, type: 2}
   time: 0.495
-  value: 0.39600387
+  value: 0.6124508
 --- !u!4 &913067992
 Transform:
   m_ObjectHideFlags: 0

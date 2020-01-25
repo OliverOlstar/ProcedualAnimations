@@ -7,7 +7,6 @@ public class DodgeComponent : MonoBehaviour
     //Oliver
 
     [HideInInspector] public bool doneDodge = false;
-    [HideInInspector] public float dodgeInput;
 
     public float shortDodgeCooldown = 1.0f;
     public float longDodgeCooldown = 1.0f;
@@ -30,7 +29,6 @@ public class DodgeComponent : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _stateController = GetComponent<PlayerStateController>();
-        _stateController.inputActions.Player.Dodge.performed += ctx => dodgeInput = ctx.ReadValue<float>();
     }
 
     public bool Dodge(bool pShortDodge, Vector2 pDirection)

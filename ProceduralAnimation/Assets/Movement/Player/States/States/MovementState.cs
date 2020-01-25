@@ -14,42 +14,48 @@ public class MovementState : BaseState
 
     public override void Enter()
     {
-        Debug.Log("MoveState: Enter");
+        //Debug.Log("MoveState: Enter");
         stateController._movementComponent.disableMovement = false;
     }
 
     public override void Exit()
     {
-        Debug.Log("MoveState: Exit");
+        //Debug.Log("MoveState: Exit");
         stateController._movementComponent.disableMovement = true;
+        //stateController._modelController.ResetJump();
     }
 
     public override Type Tick()
     {
         // Idle
-        if (stateController._movementComponent.moveInput.magnitude == 0)
+        if (stateController.moveInput.magnitude == 0)
         {
             return typeof(IdleState);
         }
 
         //Dodge
-        if (stateController._dodgeComponent.dodgeInput != -1)
+        if (stateController.dodgeInput != -1)
         {
-            return typeof(DodgeState);
+            if (stateController.onGround)
+                return typeof(DodgeState);
+            else
+                stateController.dodgeInput = -1;
         }
 
-        ////Attack
-        //if (stateController.heavyAttackInput || stateController.quickAttackInput || stateController.powerInput > 0)
-        //{
-        //    if (stateController.AttackStateReturnDelay <= Time.time)
-        //    {
-        //        return typeof(AttackState);
-        //    }
-        //    else
-        //    {
-        //        //If Inputed attack before they can return to the attack state, remove the input
-        //    }
-        //}
+        //Attack
+        if (stateController.heavyAttackinput != -1.0f || stateController.lightAttackinput != -1.0f /* power input */)
+        {
+            if (stateController.AttackStateReturnDelay <= Time.time)
+            {
+                return typeof(AttackState);
+            }
+            else
+            {
+                //If Inputed attack before they can return to the attack state, remove the input
+                stateController.heavyAttackinput = -1.0f;
+                stateController.lightAttackinput = -1.0f;
+            }
+        }
 
         //Dead
         if (stateController._playerAttributes.getHealth() <= 0)
@@ -66,7 +72,7 @@ public class MovementState : BaseState
         //Respawn (Already in the respawn to state)
         if (stateController.Respawn)
         {
-            stateController._animHandler.Respawn();
+            //stateController._modelController.Respawn();
             stateController.Respawn = false;
         }
 

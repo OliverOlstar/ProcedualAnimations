@@ -5,115 +5,136 @@ using UnityEngine;
 
 public class AttackState : BaseState
 {
-    PlayerStateController stateController;
-    
-    private int combo = 0;
-    private float AttackStateReturnDelayLength = 0.6f;
-    private bool done = false;
+    PlayerStateController _stateController;
 
+    [SerializeField] private int numberOfClicks = 0;
+    [SerializeField] private float lastClickedTime = 0;
+    [SerializeField] private float maxComboDelay = 0.8f;
+
+    private float AttackStateReturnDelayLength = 0.2f;
+
+    private bool onHolding = false;
+    public float chargeTimer = 0f;
+  
     public AttackState(PlayerStateController controller) : base(controller.gameObject)
     {
-        stateController = controller;
+        _stateController = controller;
     }
 
     public override void Enter()
     {
+        //Debug.Log("AttackState: Enter");
         //stateController._hitboxComponent.gameObject.SetActive(true); /* Handled by animation events */
-        combo = 0;
 
-        //Run attack
-        Attack();
+        onHolding = false;
+        CheckForAttack();
     }
 
     public override void Exit()
     {
+        //Debug.Log("AttackState: Exit");
         //stateController._hitboxComponent.gameObject.SetActive(false); /* Handled by animation events */
-        stateController.AttackStateReturnDelay = Time.time + AttackStateReturnDelayLength;
-        //stateController._animHandler.LeaveAttackState();
-        //stateController._animHandler.StopAttacking();
-        stateController._hitboxComponent.gameObject.SetActive(false);
+        _stateController.AttackStateReturnDelay = Time.time + AttackStateReturnDelayLength;
+        //stateController._hitboxComponent.gameObject.SetActive(false);
+        numberOfClicks = 0;
+        //stateController._modelController.ClearAttackBools();
     }
 
     public override Type Tick()
     {
-        // State Switched with Animation Events
-        switch (stateController._animHandler.attackState)
+        if (Time.time - lastClickedTime > maxComboDelay && onHolding == false)
         {
-            case 0:
-                //ClearAttackInputs();
-                break;
-
-            case 1:
-                Attack();
-                break;
-
-            case 2:
-                done = true;
-                break;
-        }
-
-        //Done Attack
-        if (done)
-        {
-            done = false;
             return typeof(MovementState);
         }
 
+        //CheckForAttack2();
+        CheckForAttack();
+
         //Stunned
-        if (stateController.Stunned)
+        if (_stateController.Stunned)
         {
             return typeof(StunnedState);
         }
 
         //Respawn
-        if (stateController.Respawn)
+        if (_stateController.Respawn)
         {
-            stateController.Respawn = false;
-            stateController._animHandler.Respawn();
+            _stateController.Respawn = false;
+            //stateController._modelController.Respawn();
             return typeof(MovementState);
         }
 
         return null;
     }
+    public bool attacking = false;
+    private bool heldAttack = true;
+    float animSpeed = 0f;
+    public bool clickActive = false;
 
-    private void Attack()
+
+    
+
+    public void CheckForAttack()
     {
-        //if (stateController.quickAttackInput && combo < 3)
-        //{
-        //    //Debug.Log("AttackState: Attack");
-        //    combo++;
-        //    ClearAttackInputs();
-        //    stateController._animHandler.StartAttack(false, combo);
-        //}
+        if (numberOfClicks <= 2)
+        {
+            // On Release Heavy (Called Once)
+            if ((_stateController.heavyAttackinput == 0 || chargeTimer >= 2) && onHolding == true)
+            {
+                ClearInputs();
+                lastClickedTime = Time.time;
 
-        //if (stateController.heavyAttackInput && combo < 3)
-        //{
-        //    //Debug.Log("AttackState: Attack");
-        //    combo++;
-        //    ClearAttackInputs();
-        //    stateController._animHandler.StartAttack(true, combo);
-        //}
+                numberOfClicks++;
 
-        //if (stateController.powerInput > 0)
-        //{
-        //    // run code from the power component
-        //    int whichPower = stateController._powerComponent.UsingPower(stateController.powerInput);
+                onHolding = false;
 
-        //    if (whichPower == -1)
-        //    {
-        //        done = true;
-        //        Debug.Log("No In Slot Power");
-        //    }
-        //    else if (whichPower == -2)
-        //    {
-        //        done = true;
-        //        Debug.Log("Not Enough Power");
-        //    }
-        //    else
-        //    {
-        //        stateController._animHandler.StartPower(whichPower);
-        //        combo = 3;
-        //    }
-        //}
+                //stateController._modelController.setAnimSpeed(1f);
+            }
+
+            // On Holding Heavy
+            else if (onHolding)
+            {
+                chargeTimer += Time.deltaTime;
+
+                if (chargeTimer >= 0.1f)
+                {
+                    //string animBoolName = "Vertical" + (numberOfClicks + 1).ToString();
+                    //stateController._modelController.modifyAnimSpeed(-4f * Time.deltaTime);
+                }    
+            }
+
+            // On Pressed Heavy (Called Once)
+            else if (_stateController.heavyAttackinput == 1)
+            {
+                //stateController._modelController.ClearAttackBools();
+                string boolName = "Triangle" + (numberOfClicks + 1).ToString();
+                //stateController._modelController.StartAttack(boolName);
+
+                chargeTimer = 0;
+                onHolding = true;
+            }
+
+            // On Pressed Light Attack (Called Once)
+            else if (_stateController.lightAttackinput == 1)
+            {
+                lastClickedTime = Time.time;
+                numberOfClicks++;
+
+
+                _stateController._modelController.PlayAttack();
+
+                //stateController._modelController.ClearAttackBools();
+                string boolName = "Square" + (numberOfClicks).ToString();
+                //stateController._modelController.StartAttack(boolName);
+                ClearInputs();
+            }
+        }
+    }
+
+
+    private void ClearInputs()
+    {
+        _stateController.lightAttackinput = -1.0f;
+        _stateController.heavyAttackinput = -1.0f;
     }
 }

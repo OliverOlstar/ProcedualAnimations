@@ -52,9 +52,9 @@ public class AnimHandler : MonoBehaviour
         }
 
         //Falling & OnGround
-        _anim.SetBool("OnGround", _stateController.OnGround);
+        _anim.SetBool("OnGround", _stateController.onGround);
 
-        if (_stateController.OnGround)
+        if (_stateController.onGround)
         {
             _anim.SetBool("Falling", false);
             offGroundTimer = 0;

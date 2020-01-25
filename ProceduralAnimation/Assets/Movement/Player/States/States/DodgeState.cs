@@ -17,23 +17,25 @@ public class DodgeState : BaseState
         Debug.Log("DodgeState: Enter");
 
         //Dodge Direction
-        Vector2 direction = stateController.LastMoveDirection;
+        Vector2 direction = stateController.LastMoveDirection.normalized;
 
         //Start Dodge
-        stateController._dodgeComponent.Dodge(stateController._dodgeComponent.dodgeInput == 0, direction);
-        //    stateController._animHandler.StartDodge(vec);
+        stateController._dodgeComponent.Dodge(stateController.dodgeInput == 0, direction);
+        //stateController._modelController.StartDodge();
 
         //Remove Input
-        stateController._dodgeComponent.dodgeInput = -1;
+        stateController.dodgeInput = -1.0f;
     }
 
     public override void Exit()
     {
         Debug.Log("DodgeState: Exit");
 
-        //Stop Anim Dodge
-        //stateController._animHandler.StopDodge();
-        stateController._dodgeComponent.dodgeInput = -1;
+        //Stop Dodge
+        //stateController._modelController.StopDodge();
+
+        //Remove Input
+        stateController.dodgeInput = -1.0f;
     }
 
     public override Type Tick()

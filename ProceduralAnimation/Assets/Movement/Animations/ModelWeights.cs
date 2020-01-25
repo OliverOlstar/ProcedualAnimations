@@ -58,7 +58,7 @@ public class ModelWeights : MonoBehaviour
         LerpWeight("Stepping Weight", stepWeight / totalWeight * moveWeightsMult);
         LerpWeight("Jumping Weight", jumpWeight / totalWeight * moveWeightsMult);
         LerpWeight("Crouching Weight", crouchWeight / totalWeight * moveWeightsMult);
-        LerpWeight("Attacking Weight", attackWeight / totalWeight);
+        LerpWeight("Attacking Weight", attackWeight);
     }
 
     private void LerpWeight(string pWeight, float pTargetValue)

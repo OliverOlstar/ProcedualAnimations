@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onGround: 0
   acceleration: {x: 0, y: 0, z: 0}
+  animSpeed: 1
+  horizontalVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &4454225938556683101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,6 +31,7 @@ MonoBehaviour:
   stepWeight: 0
   jumpWeight: 0
   crouchWeight: 0
+  attackWeight: 0
   _weightChangeDampening: 10
   _weightChangeDeadzone: 0.01
 --- !u!114 &6237853051468593737
@@ -60,9 +63,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34fdb3d3058ea048bcc96ebd32f747d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _steppingMult: 3
-  _fallingAnimSpeed: 1
-  _jumpingTransitionWidth: 2
+  _stepMult: 1
+  _fallMult: 1.6
+  _attackLength: 1
+  _attackProgress: 0
+  _stepGraph: {fileID: 11400000, guid: d105e3352e7b8e94f82be1c6df8d9084, type: 2}
+  _fallGraph: {fileID: 11400000, guid: 5d40a20a35f8b154e9204417dc7022f5, type: 2}
+  _attackGraph: {fileID: 11400000, guid: 75e55119c274554469b812e4c83bfa62, type: 2}
+  _jumpingTransitionWidth: 4.6
 --- !u!1 &6237853049773769088
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,18 +313,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3541b123ee62be43a97e97031ee7855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnGround: 0
+  onGround: 0
   Stunned: 0
   AttackStateReturnDelay: 0
   LastInputTime: 0
+  mouseInput: {x: 0, y: 0}
+  moveInput: {x: 0, y: 0}
   LastMoveDirection: {x: 0, y: 0}
+  dodgeInput: -1
+  lightAttackinput: -1
+  heavyAttackinput: -1
   _stateMachine: {fileID: 0}
   _dodgeComponent: {fileID: 0}
   _powerComponent: {fileID: 0}
   _hitboxComponent: {fileID: 0}
-  _modelController: {fileID: 0}
   _playerAttributes: {fileID: 0}
-  _animHandler: {fileID: 0}
+  _modelController: {fileID: 0}
+  _playerCamera: {fileID: 0}
   _rb: {fileID: 0}
   _Camera: {fileID: 0}
   Respawn: 0
@@ -348,9 +361,7 @@ MonoBehaviour:
   maxSpeed: 6
   inputInfluence: 1
   jumpForceUp: 20
-  onGround: 0
   disableMovement: 0
-  moveInput: {x: 0, y: 0}
 --- !u!114 &6237853051496095939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doneDodge: 0
-  dodgeInput: -1
   shortDodgeCooldown: 0.3
   longDodgeCooldown: 0.3
   shortDodgeMaxSpeed: 30

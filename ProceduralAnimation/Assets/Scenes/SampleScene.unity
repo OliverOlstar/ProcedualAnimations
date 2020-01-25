@@ -1004,11 +1004,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6237853051468593737, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: DisableRotation
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6237853051496095961, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
         type: 3}
       propertyPath: m_Name
@@ -1069,12 +1064,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8282192026272605591, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: _stepGraph
-      value: 
-      objectReference: {fileID: 11400000, guid: d105e3352e7b8e94f82be1c6df8d9084,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
 --- !u!1 &1518700285

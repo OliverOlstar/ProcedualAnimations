@@ -25,12 +25,12 @@ public class OnGround : MonoBehaviour
     [SerializeField] private float _downForceTerminal = 4f;
     private float _downForce = 0;
 
-    private MovementComponent _moveComponent;
+    private PlayerStateController _stateController;
     private Rigidbody _rb;
 
     private void Awake()
     {
-        _moveComponent = GetComponent<MovementComponent>();
+        _stateController = GetComponent<PlayerStateController>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -53,7 +53,7 @@ public class OnGround : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, _isGroundedCheckDistance))
         {
-            _moveComponent.onGround = true;
+            _stateController.onGround = true;
             _lastPoint = hit.point;
 
             CheckFellLanding();
@@ -61,7 +61,7 @@ public class OnGround : MonoBehaviour
         }
         else
         {
-            _moveComponent.onGround = false;
+            _stateController.onGround = false;
 
             if (_downForce >= _downForceTerminal)
                 _terminalFallingTimer += Time.deltaTime;
@@ -91,14 +91,14 @@ public class OnGround : MonoBehaviour
     public void FallingForce()
     {
         //Change the amount of influence player input has on the player movement based on wether he is grounded or not
-        if (_moveComponent.onGround)
+        if (_stateController.onGround)
         {
-            _moveComponent.inputInfluence = _inputInfluenceGrounded;
+            _stateController._movementComponent.inputInfluence = _inputInfluenceGrounded;
             _downForce = 0;
         }
         else
         {
-            _moveComponent.inputInfluence = _inputInfluenceInAir;
+            _stateController._movementComponent.inputInfluence = _inputInfluenceInAir;
 
             //Add force downwards which adds ontop of gravity
             if (_downForce < _downForceTerminal)

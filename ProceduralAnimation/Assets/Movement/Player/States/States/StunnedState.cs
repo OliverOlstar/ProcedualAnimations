@@ -38,7 +38,7 @@ public class StunnedState : BaseState
         if (stateController.Respawn)
         {
             stateController.Respawn = false;
-            stateController._animHandler.Respawn();
+            //stateController._modelController.Respawn();
             return typeof(MovementState);
         }
 
