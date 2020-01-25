@@ -16,7 +16,8 @@ public class ModelController : MonoBehaviour
     private ModelMovement _modelMovement;
 
     [HideInInspector] public Vector3 horizontalVelocity;
-
+    private bool _Attacking;
+    
     void Start()
     {
         // Get Model Components
@@ -46,5 +47,14 @@ public class ModelController : MonoBehaviour
 
         _modelAnimation.SteppingAnim();
         _modelAnimation.JumpingAnim();
+
+        if (_Attacking)
+            _modelAnimation.AttackingAnim();
+    }
+
+    public void PlayAttack()
+    {
+        _Attacking = true;
+        _modelWeights.SetWeights(0, 0, 0, 1);
     }
 }

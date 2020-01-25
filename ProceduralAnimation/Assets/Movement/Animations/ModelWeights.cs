@@ -10,10 +10,11 @@ public class ModelWeights : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float stepWeight = 0;
     [SerializeField] [Range(0, 1)] private float jumpWeight = 0;
     [SerializeField] [Range(0, 1)] private float crouchWeight = 0;
+    [SerializeField] [Range(0, 1)] private float attackWeight = 0;
 
     [Space]
-    [SerializeField] private float _weightChangeDampening = 1;
-    [SerializeField] private float _weightChangeDeadzone = 0.1f;
+    [SerializeField] private float _weightChangeDampening = 10;
+    [SerializeField] private float _weightChangeDeadzone = 0.01f;
 
     public void Init(ModelController pController, Animator pAnim)
     {
@@ -35,17 +36,29 @@ public class ModelWeights : MonoBehaviour
         }
     }
 
+    public void SetWeights(float pStepWeight, float pJumpWeight, float pCrouchWeight, float pAttackWeight)
+    {
+        stepWeight = pStepWeight;
+        jumpWeight = pJumpWeight;
+        crouchWeight = pCrouchWeight;
+        attackWeight = pAttackWeight;
+    }
+
     public void LerpWeights()
     {
         // Get total weight (Used to prevent Total Weight from going past 1)
-        float totalWeight = stepWeight + jumpWeight + crouchWeight;
+        float totalWeight = stepWeight + jumpWeight + crouchWeight + attackWeight;
         if (totalWeight <= 1)
             totalWeight = 1;
 
+        // Attack Weight override
+        float moveWeightsMult = 1 - attackWeight;
+
         // Lerp weight values
-        LerpWeight("Stepping Weight", stepWeight / totalWeight);
-        LerpWeight("Jumping Weight", jumpWeight / totalWeight);
-        LerpWeight("Crouching Weight", crouchWeight / totalWeight);
+        LerpWeight("Stepping Weight", stepWeight / totalWeight * moveWeightsMult);
+        LerpWeight("Jumping Weight", jumpWeight / totalWeight * moveWeightsMult);
+        LerpWeight("Crouching Weight", crouchWeight / totalWeight * moveWeightsMult);
+        LerpWeight("Attacking Weight", attackWeight / totalWeight);
     }
 
     private void LerpWeight(string pWeight, float pTargetValue)
