@@ -8,6 +8,7 @@ public class ModelAnimations : MonoBehaviour
     private Rigidbody _rb;
     private Animator _anim;
 
+    [Header("Animation Lengths")]
     [SerializeField] private float _stepMult = 1;
     [SerializeField] private float _fallMult = 1;
     [SerializeField] private float _attackLength = 1;
@@ -75,8 +76,8 @@ public class ModelAnimations : MonoBehaviour
         relDirection.y = 0;
         relDirection.Normalize();
 
-        _anim.SetFloat("Stepping Direction X", relDirection.x);
-        _anim.SetFloat("Stepping Direction Z", relDirection.z);
+        _anim.SetFloat("Move Direction X", relDirection.x);
+        _anim.SetFloat("Move Direction Z", relDirection.z);
     }
 
     private float increaseProgress(float pProgress, float pMult)
@@ -102,9 +103,4 @@ public class ModelAnimations : MonoBehaviour
 
         return pos;
     }
-
-    //private float GetSpringDamper(float pTime, float pShrinkingValue, )
-    //{
-    //    return pShrinkingValue * Mathf.Sin(f * pTime);
-    //}
 }

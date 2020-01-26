@@ -11,6 +11,7 @@ public class ModelWeights : MonoBehaviour
     [SerializeField] [Range(0, 1)] private float jumpWeight = 0;
     [SerializeField] [Range(0, 1)] private float crouchWeight = 0;
     [SerializeField] [Range(0, 1)] private float attackWeight = 0;
+    [SerializeField] [Range(0, 1)] private float dodgeWeight = 0;
 
     [Space]
     [SerializeField] private float _weightChangeDampening = 10;
@@ -36,12 +37,13 @@ public class ModelWeights : MonoBehaviour
         }
     }
 
-    public void SetWeights(float pStepWeight, float pJumpWeight, float pCrouchWeight, float pAttackWeight)
+    public void SetWeights(float pStepWeight, float pJumpWeight, float pCrouchWeight, float pAttackWeight, float pDodgeWeight)
     {
         stepWeight = pStepWeight;
         jumpWeight = pJumpWeight;
         crouchWeight = pCrouchWeight;
         attackWeight = pAttackWeight;
+        dodgeWeight = pDodgeWeight;
     }
 
     public void LerpWeights()
@@ -52,13 +54,14 @@ public class ModelWeights : MonoBehaviour
             totalWeight = 1;
 
         // Attack Weight override
-        float moveWeightsMult = 1 - attackWeight;
+        float moveWeightsMult = 1 - (attackWeight + dodgeWeight) / 2;
 
         // Lerp weight values
         LerpWeight("Stepping Weight", stepWeight / totalWeight * moveWeightsMult);
         LerpWeight("Jumping Weight", jumpWeight / totalWeight * moveWeightsMult);
         LerpWeight("Crouching Weight", crouchWeight / totalWeight * moveWeightsMult);
         LerpWeight("Attacking Weight", attackWeight);
+        LerpWeight("Dodging Weight", dodgeWeight);
     }
 
     private void LerpWeight(string pWeight, float pTargetValue)

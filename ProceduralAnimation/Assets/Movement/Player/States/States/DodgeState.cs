@@ -21,7 +21,7 @@ public class DodgeState : BaseState
 
         //Start Dodge
         stateController._dodgeComponent.Dodge(stateController.dodgeInput == 0, direction);
-        //stateController._modelController.StartDodge();
+        stateController._modelController.PlayDodge();
 
         //Remove Input
         stateController.dodgeInput = -1.0f;
@@ -32,7 +32,7 @@ public class DodgeState : BaseState
         Debug.Log("DodgeState: Exit");
 
         //Stop Dodge
-        //stateController._modelController.StopDodge();
+        stateController._modelController.DoneDodge();
 
         //Remove Input
         stateController.dodgeInput = -1.0f;

@@ -11,14 +11,11 @@ public class OnGround : MonoBehaviour
     [Header("Fall Damage")]
     [SerializeField] private float _fallMaxTime = 2;
     [SerializeField] private float _fallDamageStartTime = 1;
-    [SerializeField] private int _fallDamageMax = 40;
-    [SerializeField] private int _fallDamageMin = 20;
     private float _terminalFallingTimer = 0;
 
     [Space]
     [SerializeField] private float _inputInfluenceGrounded = 1.0f;
     [SerializeField] private float _inputInfluenceInAir = 0.7f;
-    [SerializeField] private float _influenceUpdateRate = 1.0f;
 
     [Space]
     [SerializeField] private float _downForceRate = 6f;

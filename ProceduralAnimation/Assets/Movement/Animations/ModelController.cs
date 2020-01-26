@@ -39,7 +39,16 @@ public class ModelController : MonoBehaviour
     {
         horizontalVelocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
 
-        _modelWeights.UpdateWeights();
+        if (_Attacking)
+        {
+            if (_modelAnimation.AttackingAnim())
+                DoneAttack();
+        }
+        else
+        {
+            _modelWeights.UpdateWeights();
+        }
+
         _modelWeights.LerpWeights();
 
         _modelMovement.TiltingParent();
@@ -47,24 +56,32 @@ public class ModelController : MonoBehaviour
 
         _modelAnimation.SteppingAnim();
         _modelAnimation.JumpingAnim();
-
-        if (_Attacking)
-        {
-            if (_modelAnimation.AttackingAnim())
-                DoneAttack();
-        }
-    }
-
-    public void DoneAttack()
-    {
-        _Attacking = false;
-        _modelWeights.SetWeights(0, 0, 0, 0);
     }
 
     public void PlayAttack()
     {
         _Attacking = true;
-        _modelWeights.SetWeights(0, 0, 0, 1);
+        _modelMovement.DisableRotation = true;
+        _modelWeights.SetWeights(0, 0, 0, 1, 0);
         _modelAnimation.ResetAttack();
+    }
+
+    public void DoneAttack()
+    {
+        _Attacking = false;
+        _modelMovement.DisableRotation = false;
+        _modelWeights.SetWeights(0, 0, 0, 0, 0);
+    }
+
+    public void PlayDodge()
+    {
+        _modelMovement.DisableRotation = true;
+        _modelWeights.SetWeights(0, 0, 0, 0, 1);
+    }
+
+    public void DoneDodge()
+    {
+        _modelMovement.DisableRotation = false;
+        _modelWeights.SetWeights(0, 0, 0, 0, 0);
     }
 }
