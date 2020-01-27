@@ -22,6 +22,10 @@ public class DodgeComponent : MonoBehaviour
     [SerializeField] private float longDodgeDuration = 0.3f;
     [SerializeField] private float longDodgeAcceleration = 100;
 
+    [Header("Dodge Movement Anim")]
+    [SerializeField] private float shortDodgeAnimSpeed = 1;
+    [SerializeField] private float longDodgeAnimSpeed = 1;
+
     private Rigidbody _rb;
     private PlayerStateController _stateController;
 
@@ -40,11 +44,13 @@ public class DodgeComponent : MonoBehaviour
             {
                 //Short Dodge
                 StartCoroutine(DodgeRoutine(shortDodgeMaxSpeed, shortDodgeDuration, shortDodgeAcceleration, pDirection, shortDodgeCooldown));
+                _stateController._modelController.PlayDodge(_stateController.LastMoveDirection, shortDodgeAnimSpeed);
             }
             else
             {
                 //Long Dodge
                 StartCoroutine(DodgeRoutine(longDodgeMaxSpeed, longDodgeDuration, longDodgeAcceleration, pDirection, longDodgeCooldown));
+                _stateController._modelController.PlayDodge(_stateController.LastMoveDirection, longDodgeAnimSpeed);
             }
 
             return true;

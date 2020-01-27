@@ -36,7 +36,7 @@ public class ModelAnimations : MonoBehaviour
     {
         // Increase Falling Animation
         _attackProgress = Mathf.Min(1, _attackProgress + Time.fixedDeltaTime / _attackLength * _modelController.animSpeed);
-        _anim.SetFloat("Attacking Progress", GetCatmullRomPosition(_attackProgress, _attackGraph).y);
+        _anim.SetFloat("Attacking Progress", _modelController.GetCatmullRomPosition(_attackProgress, _attackGraph).y);
          
         return _attackProgress == 1;
     }
@@ -54,7 +54,7 @@ public class ModelAnimations : MonoBehaviour
 
         // Increase Falling Animation
         _fallProgress = increaseProgress(_fallProgress, _fallMult);
-        _anim.SetFloat("Falling Progress", GetCatmullRomPosition(_fallProgress, _fallGraph).y);
+        _anim.SetFloat("Falling Progress", _modelController.GetCatmullRomPosition(_fallProgress, _fallGraph).y);
     }
 
     public void SteppingAnim()
@@ -68,7 +68,7 @@ public class ModelAnimations : MonoBehaviour
         float steppingSpeed = _modelController.horizontalVelocity.magnitude / GetComponentInParent<MovementComponent>().maxSpeed;
 
         // Set Anim Stepping values
-        _anim.SetFloat("Stepping Progress", GetCatmullRomPosition(time, _stepGraph).y + secondStep);
+        _anim.SetFloat("Stepping Progress", _modelController.GetCatmullRomPosition(time, _stepGraph).y + secondStep);
         _anim.SetFloat("Stepping Speed", (steppingSpeed > 1) ? 1 : steppingSpeed);
 
         // Set Anim Direction
@@ -87,20 +87,5 @@ public class ModelAnimations : MonoBehaviour
             pProgress -= 1;
 
         return pProgress;
-    }
-
-    private Vector2 GetCatmullRomPosition(float pTime, SOGraph pGraph)
-    {
-        Vector2 startPoint = Vector2.zero;
-        Vector2 endPoint = new Vector2(1, pGraph.EndValue);
-
-        Vector2 a = 2f * startPoint;
-        Vector2 b = endPoint - pGraph.firstBender;
-        Vector2 c = 2f * pGraph.firstBender - 5f * startPoint + 4f * endPoint - pGraph.secondBender;
-        Vector2 d = -pGraph.firstBender + 3f * startPoint - 3f * endPoint + pGraph.secondBender;
-
-        Vector2 pos = 0.5f * (a + (b * pTime) + (c * pTime * pTime) + (d * pTime * pTime * pTime));
-
-        return pos;
     }
 }

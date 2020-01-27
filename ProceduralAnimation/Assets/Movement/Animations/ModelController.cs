@@ -17,6 +17,7 @@ public class ModelController : MonoBehaviour
 
     [HideInInspector] public Vector3 horizontalVelocity;
     private bool _Attacking;
+    private bool _Dodging;
     
     void Start()
     {
@@ -32,21 +33,24 @@ public class ModelController : MonoBehaviour
         // Setup Components
         _modelWeights.Init(this, _anim);
         _modelAnimation.Init(this, _rb, _anim);
-        _modelMovement.Init(this, _anim);
+        _modelMovement.Init(this);
     }
 
     void FixedUpdate()
     {
         horizontalVelocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
 
-        if (_Attacking)
+        if (_Dodging == false)
         {
-            if (_modelAnimation.AttackingAnim())
-                DoneAttack();
-        }
-        else
-        {
-            _modelWeights.UpdateWeights();
+            if (_Attacking == true)
+            {
+                if (_modelAnimation.AttackingAnim())
+                    DoneAttack();
+            }
+            else
+            {
+                _modelWeights.UpdateWeights();
+            }
         }
 
         _modelWeights.LerpWeights();
@@ -73,15 +77,33 @@ public class ModelController : MonoBehaviour
         _modelWeights.SetWeights(0, 0, 0, 0, 0);
     }
 
-    public void PlayDodge()
+    public void PlayDodge(Vector2 pDirection, float pSpeed)
     {
+        _Dodging = true;
         _modelMovement.DisableRotation = true;
         _modelWeights.SetWeights(0, 0, 0, 0, 1);
+        _modelMovement.PlayFlipParent(pDirection, pSpeed);
     }
 
     public void DoneDodge()
     {
+        _Dodging = false;
         _modelMovement.DisableRotation = false;
         _modelWeights.SetWeights(0, 0, 0, 0, 0);
+    }
+
+    public Vector2 GetCatmullRomPosition(float pTime, SOGraph pGraph)
+    {
+        Vector2 startPoint = Vector2.zero;
+        Vector2 endPoint = new Vector2(1, pGraph.EndValue);
+
+        Vector2 a = 2f * startPoint;
+        Vector2 b = endPoint - pGraph.firstBender;
+        Vector2 c = 2f * pGraph.firstBender - 5f * startPoint + 4f * endPoint - pGraph.secondBender;
+        Vector2 d = -pGraph.firstBender + 3f * startPoint - 3f * endPoint + pGraph.secondBender;
+
+        Vector2 pos = 0.5f * (a + (b * pTime) + (c * pTime * pTime) + (d * pTime * pTime * pTime));
+
+        return pos;
     }
 }

@@ -1,5 +1,74 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!206 &-8852596269815102819
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlendTree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: 3ea0236421a110d4ca4551f087142b9e,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: 06485c77f3e324b48b96e785d3629b71,
+      type: 3}
+    m_Threshold: 0.2
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: 37acd0b222da14443a1c22259daa602b,
+      type: 3}
+    m_Threshold: 0.4
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: 4772c94c280d7e24f8be6dec4351cbe0,
+      type: 3}
+    m_Threshold: 0.6
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: bb953e8ac005e084fba46d2f4afdd841,
+      type: 3}
+    m_Threshold: 0.8
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1827226128182048838, guid: bd43458f76cc338419754c461fe7993c,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Stepping Speed
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!206 &-8043533615635627058
 BlendTree:
   m_ObjectHideFlags: 1
@@ -195,13 +264,12 @@ BlendTree:
   m_Name: Stepping Blend
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 1827226128182048838, guid: abe9e3c8d2ea027469365d3f40ba609b,
-      type: 3}
+    m_Motion: {fileID: -8852596269815102819}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Crouching Weight
+    m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -3757609997216015293}
@@ -229,7 +297,7 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: Stepping Weight
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
