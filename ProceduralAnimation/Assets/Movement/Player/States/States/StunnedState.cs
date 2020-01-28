@@ -34,14 +34,6 @@ public class StunnedState : BaseState
             return typeof(MovementState);
         }
 
-        //Respawn
-        if (stateController.Respawn)
-        {
-            stateController.Respawn = false;
-            //stateController._modelController.Respawn();
-            return typeof(MovementState);
-        }
-
         return null;
     }
 }

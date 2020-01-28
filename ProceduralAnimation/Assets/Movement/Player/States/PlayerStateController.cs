@@ -45,9 +45,6 @@ public class PlayerStateController : MonoBehaviour
     [HideInInspector] public Rigidbody _rb;
     [HideInInspector] public Transform _Camera;
 
-    //Reset Player
-    [HideInInspector] public bool Respawn = false;
-
     //[HideInInspector] public InputPlayer inputs;
     //[HideInInspector] public InputAction.CallbackContext ctx;
 

@@ -66,7 +66,7 @@ public class ModelController : MonoBehaviour
     {
         _Attacking = true;
         _modelMovement.DisableRotation = true;
-        _modelWeights.SetWeights(0, 0, 0, 1, 0);
+        _modelWeights.SetWeights(0, 0, 1, 0);
         _modelAnimation.ResetAttack();
     }
 
@@ -74,22 +74,20 @@ public class ModelController : MonoBehaviour
     {
         _Attacking = false;
         _modelMovement.DisableRotation = false;
-        _modelWeights.SetWeights(0, 0, 0, 0, 0);
+        _modelWeights.SetWeights(0, 0, 0, 0);
     }
 
     public void PlayDodge(Vector2 pDirection, float pSpeed)
     {
         _Dodging = true;
-        _modelMovement.DisableRotation = true;
-        _modelWeights.SetWeights(0, 0, 0, 0, 1);
+        _modelWeights.SetWeights(0, 0, 0, 1);
         _modelMovement.PlayFlipParent(pDirection, pSpeed);
     }
 
     public void DoneDodge()
     {
         _Dodging = false;
-        _modelMovement.DisableRotation = false;
-        _modelWeights.SetWeights(0, 0, 0, 0, 0);
+        _modelWeights.SetWeights(0, 0, 0, 0);
     }
 
     public Vector2 GetCatmullRomPosition(float pTime, SOGraph pGraph)
@@ -105,5 +103,10 @@ public class ModelController : MonoBehaviour
         Vector2 pos = 0.5f * (a + (b * pTime) + (c * pTime * pTime) + (d * pTime * pTime * pTime));
 
         return pos;
+    }
+
+    public void AddCrouching(float pValue, float pGoingToLength, float pGoingAwayLength)
+    {
+        _modelWeights.AddCrouching(pValue, pGoingToLength, pGoingAwayLength);
     }
 }

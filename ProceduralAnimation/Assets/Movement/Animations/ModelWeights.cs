@@ -37,15 +37,6 @@ public class ModelWeights : MonoBehaviour
         }
     }
 
-    public void SetWeights(float pStepWeight, float pJumpWeight, float pCrouchWeight, float pAttackWeight, float pDodgeWeight)
-    {
-        stepWeight = pStepWeight;
-        jumpWeight = pJumpWeight;
-        crouchWeight = pCrouchWeight;
-        attackWeight = pAttackWeight;
-        dodgeWeight = pDodgeWeight;
-    }
-
     public void LerpWeights()
     {
         // Get total weight (Used to prevent Total Weight from going past 1)
@@ -78,5 +69,44 @@ public class ModelWeights : MonoBehaviour
 
         // Update Anim
         _anim.SetFloat(pWeight, currentValue);
+    }
+
+    public void SetWeights(float pStepWeight, float pJumpWeight, float pAttackWeight, float pDodgeWeight)
+    {
+        stepWeight = pStepWeight;
+        jumpWeight = pJumpWeight;
+        //crouchWeight = pCrouchWeight;
+        attackWeight = pAttackWeight;
+        dodgeWeight = pDodgeWeight;
+    }
+
+    public void AddCrouching(float pValue, float pGoingToLength, float pGoingAwayLength)
+    {
+        StopAllCoroutines();
+        StartCoroutine(crouchRoutine(pValue, pGoingToLength, pGoingAwayLength));
+    }
+
+    IEnumerator crouchRoutine(float pValue, float pGoingToLength, float pGoingAwayLength)
+    {
+        // Increase Value
+        while (crouchWeight < pValue)
+        {
+            crouchWeight += Time.deltaTime * (1 / pGoingToLength);
+            yield return null;
+        }
+
+        // Snap to target value for a frame
+        crouchWeight = pValue;
+        yield return null;
+
+        // Decrease Value
+        while (crouchWeight > 0)
+        {
+            crouchWeight -= Time.deltaTime * (1 / pGoingAwayLength);
+            yield return null;
+        }
+
+        // Snap back to zero
+        crouchWeight = 0;
     }
 }

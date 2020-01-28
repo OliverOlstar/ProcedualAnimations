@@ -69,13 +69,6 @@ public class IdleState : BaseState
             return typeof(StunnedState);
         }
 
-        //Respawn (Already in the respawn to state)
-        if (stateController.Respawn)
-        {
-            //stateController._modelController.Respawn();
-            stateController.Respawn = false;
-        }
-
         return null;
     }
 }

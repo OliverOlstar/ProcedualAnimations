@@ -27,13 +27,6 @@ public class DeathState : BaseState
 
     public override Type Tick()
     {
-        //Respawn
-        if (stateController.Respawn)
-        {
-            stateController.Respawn = false;
-            return typeof(MovementState);
-        }
-
         return null;
     }
 }

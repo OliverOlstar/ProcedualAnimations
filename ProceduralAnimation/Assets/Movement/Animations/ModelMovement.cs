@@ -16,14 +16,17 @@ public class ModelMovement : MonoBehaviour
 
     [Header("Flip")]
     [SerializeField] private SOGraph _flipGraph;
-    [SerializeField] [Range(0, 1)] private float _flipProgress;
+    private float _flipProgress;
     private float _flipYRotation;
+
+    private Quaternion _parentDefaultRotation;
 
     public bool DisableRotation;
 
     public void Init(ModelController pController)
     {
         _modelController = pController;
+        _parentDefaultRotation = transform.parent.rotation;
     }
 
     public void FacingSelf()
@@ -71,7 +74,7 @@ public class ModelMovement : MonoBehaviour
 
     IEnumerator FlipParentRoutine(float pSpeed)
     {
-        //DisableRotation = true;
+        DisableRotation = true;
 
         // Setup for Flip
         Quaternion originalRotation = transform.localRotation;
@@ -94,6 +97,6 @@ public class ModelMovement : MonoBehaviour
         transform.parent.eulerAngles = new Vector3(0, -90, 0);
         transform.localRotation = originalRotation;
 
-        //DisableRotation = false;
+        DisableRotation = false;
     }
 }

@@ -7,15 +7,17 @@ public class AttackState : BaseState
 {
     PlayerStateController _stateController;
 
-    [SerializeField] private int numberOfClicks = 0;
-    [SerializeField] private float lastClickedTime = 0;
-    [SerializeField] private float maxComboDelay = 0.8f;
+    [SerializeField] private int _numberOfClicks = 0;
+    [SerializeField] private float _exitStateTime = 0;
+    [SerializeField] private float _addForceTime = 0;
 
     private float AttackStateReturnDelayLength = 0.2f;
 
-    private bool onHolding = false;
+    private bool _onHolding = false;
     public float chargeTimer = 0f;
-  
+    public bool attacking = false;
+    public bool clickActive = false;
+
     public AttackState(PlayerStateController controller) : base(controller.gameObject)
     {
         _stateController = controller;
@@ -26,7 +28,7 @@ public class AttackState : BaseState
         //Debug.Log("AttackState: Enter");
         //stateController._hitboxComponent.gameObject.SetActive(true); /* Handled by animation events */
 
-        onHolding = false;
+        _onHolding = false;
         CheckForAttack();
     }
 
@@ -36,63 +38,56 @@ public class AttackState : BaseState
         //stateController._hitboxComponent.gameObject.SetActive(false); /* Handled by animation events */
         _stateController.AttackStateReturnDelay = Time.time + AttackStateReturnDelayLength;
         //stateController._hitboxComponent.gameObject.SetActive(false);
-        numberOfClicks = 0;
+        _numberOfClicks = 0;
         //stateController._modelController.ClearAttackBools();
     }
 
     public override Type Tick()
     {
-        if (Time.time - lastClickedTime > maxComboDelay && onHolding == false)
+        // Leave state after attack
+        if (Time.time > _exitStateTime && _onHolding == false)
         {
             return typeof(MovementState);
         }
 
-        //CheckForAttack2();
-        CheckForAttack();
+        if (Time.time > _addForceTime && _onHolding == false)
+        {
+            _stateController._rb.AddForce(_stateController._modelController.transform.forward * 20);
+        }
 
-        //Stunned
+        // Stunned
         if (_stateController.Stunned)
         {
             return typeof(StunnedState);
         }
 
-        //Respawn
-        if (_stateController.Respawn)
-        {
-            _stateController.Respawn = false;
-            //stateController._modelController.Respawn();
-            return typeof(MovementState);
-        }
+        // Check for another attack
+        CheckForAttack();
 
         return null;
     }
-    public bool attacking = false;
-    private bool heldAttack = true;
-    float animSpeed = 0f;
-    public bool clickActive = false;
-
-
-    
 
     public void CheckForAttack()
     {
-        if (numberOfClicks <= 2)
+        if (_numberOfClicks <= 2)
         {
             // On Release Heavy (Called Once)
-            if ((_stateController.heavyAttackinput == 0 || chargeTimer >= 2) && onHolding == true)
+            if ((_stateController.heavyAttackinput == 0 || chargeTimer >= 2) && _onHolding == true)
             {
                 ClearInputs();
-                lastClickedTime = Time.time;
 
-                numberOfClicks++;
+                // All attacks are 1 second length for now
+                _exitStateTime = Time.time + 1;
 
-                onHolding = false;
+                _numberOfClicks++;
+
+                _onHolding = false;
 
                 //stateController._modelController.setAnimSpeed(1f);
             }
 
             // On Holding Heavy
-            else if (onHolding)
+            else if (_onHolding)
             {
                 chargeTimer += Time.deltaTime;
 
@@ -107,24 +102,25 @@ public class AttackState : BaseState
             else if (_stateController.heavyAttackinput == 1)
             {
                 //stateController._modelController.ClearAttackBools();
-                string boolName = "Triangle" + (numberOfClicks + 1).ToString();
+                //string boolName = "Triangle" + (_numberOfClicks + 1).ToString();
                 //stateController._modelController.StartAttack(boolName);
 
                 chargeTimer = 0;
-                onHolding = true;
+                _onHolding = true;
             }
 
             // On Pressed Light Attack (Called Once)
             else if (_stateController.lightAttackinput == 1)
             {
-                lastClickedTime = Time.time;
-                numberOfClicks++;
+                _exitStateTime = Time.time + 1;
+                _addForceTime = Time.time + 0.4f;
+                _numberOfClicks++;
 
 
                 _stateController._modelController.PlayAttack();
 
                 //stateController._modelController.ClearAttackBools();
-                string boolName = "Square" + (numberOfClicks).ToString();
+                //string boolName = "Square" + (_numberOfClicks).ToString();
                 //stateController._modelController.StartAttack(boolName);
                 ClearInputs();
             }

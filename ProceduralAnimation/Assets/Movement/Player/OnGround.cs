@@ -48,14 +48,20 @@ public class OnGround : MonoBehaviour
     {
         //Raycast to check for if grounded
         RaycastHit hit;
+        // On ground
         if (Physics.Raycast(transform.position, Vector3.down, out hit, _isGroundedCheckDistance))
         {
-            _stateController.onGround = true;
-            _lastPoint = hit.point;
+            // Landed
+            if (_stateController.onGround == false)
+            {
+                _stateController.onGround = true;
+                _stateController._modelController.AddCrouching(_downForce / _downForceTerminal, 0.2f, 0.6f);
+            }
 
-            CheckFellLanding();
+            _lastPoint = hit.point;
             _terminalFallingTimer = 0;
         }
+        // Off ground
         else
         {
             _stateController.onGround = false;
@@ -73,15 +79,7 @@ public class OnGround : MonoBehaviour
             _rb.velocity = Vector3.zero;
             transform.position = _lastPoint + new Vector3(0, _respawnYOffset, 0);
             _terminalFallingTimer = 0;
-        }
-    }
-
-    private void CheckFellLanding()
-    {
-        if (_terminalFallingTimer >= _fallDamageStartTime)
-        {
-            float fallPercent = (_terminalFallingTimer - _fallDamageStartTime) / (_fallMaxTime - _fallDamageStartTime);
-            //int fallDamage = Mathf.RoundToInt(fallDamageMax * fallPercent + fallDamageMin * (1 - fallPercent));
+            _downForce = 0;
         }
     }
 
@@ -104,12 +102,6 @@ public class OnGround : MonoBehaviour
                 _downForce = _downForceTerminal;
         }
 
-        _rb.AddForce(Vector3.down * Mathf.Pow(_downForce, 2));
-    }
-
-    private void LerpInputInfluence(float pTarget)
-    {
-        //Update inputInflunce to target
-        //_moveComponent.inputInfluence = Mathf.Lerp(_moveComponent.inputInfluence, pTarget, influenceUpdateRate * Time.deltaTime);
+        _rb.AddForce(Vector3.down * _downForce);
     }
 }
