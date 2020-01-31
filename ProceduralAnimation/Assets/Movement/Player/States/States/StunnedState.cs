@@ -8,7 +8,7 @@ public class StunnedState : BaseState
     PlayerStateController stateController;
 
     private float _leaveStateTime;
-    private float _cooldown = 0.2f;
+    private float _cooldown = 0.1f;
 
     public StunnedState(PlayerStateController controller) : base(controller.gameObject)
     {

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Attacking Graph
   m_EditorClassIdentifier: 
   EndValue: 1
-  firstBender: {x: -1.21, y: 1.06}
-  secondBender: {x: 0.53, y: -2}
+  firstBender: {x: -3.72, y: 1.02}
+  secondBender: {x: 1.15, y: -1.92}

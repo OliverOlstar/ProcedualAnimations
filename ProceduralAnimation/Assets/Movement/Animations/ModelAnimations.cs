@@ -41,10 +41,11 @@ public class ModelAnimations : MonoBehaviour
         return _attackProgress == 1;
     }
 
-    public void ResetAttack()
+    public void StartAttack(int pIndex)
     {
         _attackProgress = 0;
         _anim.SetFloat("Attacking Progress", 0);
+        _anim.SetFloat("Attacking Index", pIndex);
     }
 
     public void JumpingAnim()

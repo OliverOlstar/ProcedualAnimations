@@ -11,77 +11,77 @@ AvatarMask:
   m_Elements:
   - m_Path: 
     m_Weight: 1
-  - m_Path: CTRL_Master
+  - m_Path: Lizz
     m_Weight: 1
-  - m_Path: JNT_Master
+  - m_Path: Lizz/JNT_Master
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips
+  - m_Path: Lizz/JNT_Master/JNT_Hips
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical/JNT_L_Shoulder
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical/JNT_L_Shoulder
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical/JNT_L_Shoulder/JNT__L_Elbow
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical/JNT_L_Shoulder/JNT__L_Elbow
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical/JNT_L_Shoulder/JNT__L_Elbow/JNT_L_Wrist
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_L_Clavical/JNT_L_Shoulder/JNT__L_Elbow/JNT_L_Wrist
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head/JNT_Jaw
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head/JNT_Jaw
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head/JNT_L_Eye
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head/JNT_L_Eye
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head/JNT_R_Eye
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_Neck/JNT_Head/JNT_R_Eye
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical/JNT_R_Shoulder
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical/JNT_R_Shoulder
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical/JNT_R_Shoulder/JNT_R_Elbow
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical/JNT_R_Shoulder/JNT_R_Elbow
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical/JNT_R_Shoulder/JNT_R_Elbow/JNT_R_Wrist
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Abs/JNT_Chest/JNT_R_Clavical/JNT_R_Shoulder/JNT_R_Elbow/JNT_R_Wrist
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_L_Leg
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_L_Leg
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee/JNT_L_Ankle
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee/JNT_L_Ankle
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee/JNT_L_Ankle/JNT_L_Foot
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee/JNT_L_Ankle/JNT_L_Foot
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee/JNT_L_Ankle/JNT_L_Foot/JNT_L_Toe
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_L_Leg/JNT_L_Knee/JNT_L_Ankle/JNT_L_Foot/JNT_L_Toe
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_R_Leg
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_R_Leg
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle/JNT_R_Foot
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle/JNT_R_Foot
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle/JNT_R_Foot/JNT_R_Toe
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_R_Leg/JNT_R_Knee/JNT_R_Ankle/JNT_R_Foot/JNT_R_Toe
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Tail
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1
     m_Weight: 1
-  - m_Path: JNT_Master/JNT_Hips/JNT_Tail/JNT_Tail1
-    m_Weight: 0
-  - m_Path: JNT_Master/JNT_Hips/JNT_Tail/JNT_Tail1/JNT_Tail2
-    m_Weight: 0
-  - m_Path: JNT_Master/JNT_Hips/JNT_Tail/JNT_Tail1/JNT_Tail2/JNT_Tail3
-    m_Weight: 0
-  - m_Path: Mesh_Grp
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2
     m_Weight: 1
-  - m_Path: Mesh_Grp/Body_Low
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3
     m_Weight: 1
-  - m_Path: Mesh_Grp/Claws_low
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3/JNT_Tail1_4
     m_Weight: 1
-  - m_Path: Mesh_Grp/Eyes_Low
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3/JNT_Tail1_4/JNT_Tail1_5
     m_Weight: 1
-  - m_Path: Mesh_Grp/Teeth_Low
+  - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3/JNT_Tail1_4/JNT_Tail1_5/JNT_Tail1_6
+    m_Weight: 1
+  - m_Path: SM_Lizzy
+    m_Weight: 1
+  - m_Path: SM_Lizzy/Lizzy_EyeTeeth_low:Group32849
+    m_Weight: 1
+  - m_Path: SM_Lizzy/Lizzy_low:Group51667
     m_Weight: 1
