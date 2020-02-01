@@ -1106,6 +1106,52 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1690672447, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: _attackLength
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690672449, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: stepWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: _Attacks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: attacks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: _Attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 365918b984a3a1c49ba47b65cdda9f9e,
+        type: 2}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: _Attacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f7ea7fe693a34143a48a0b80099411c,
+        type: 2}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: _Attacks.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 14a66436df1065d46bf9e6b1513243d2,
+        type: 2}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: attacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 365918b984a3a1c49ba47b65cdda9f9e,
+        type: 2}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: attacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f7ea7fe693a34143a48a0b80099411c,
+        type: 2}
+    - target: {fileID: 1690672450, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
+      propertyPath: attacks.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 14a66436df1065d46bf9e6b1513243d2,
+        type: 2}
     - target: {fileID: 5006512736758452899, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
         type: 3}
       propertyPath: m_LocalPosition.y

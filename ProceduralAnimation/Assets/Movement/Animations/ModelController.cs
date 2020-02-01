@@ -17,7 +17,11 @@ public class ModelController : MonoBehaviour
 
     [HideInInspector] public Vector3 horizontalVelocity;
     private bool _Attacking;
+    private bool _AttackingDirection;
     private bool _Dodging;
+
+    [Space]
+    public SOAttack[] attacks;
     
     void Start()
     {
@@ -44,7 +48,7 @@ public class ModelController : MonoBehaviour
         {
             if (_Attacking == true)
             {
-                if (_modelAnimation.AttackingAnim())
+                if (_modelAnimation.AttackingAnim(_AttackingDirection))
                     DoneAttack();
             }
             else
@@ -66,6 +70,7 @@ public class ModelController : MonoBehaviour
     public void PlayAttack(int pIndex)
     {
         _Attacking = true;
+        _AttackingDirection = pIndex == 1 ? false : true;
         _modelMovement.DisableRotation = true;
         _modelWeights.SetWeights(0, 0, 1, 0);
         _modelAnimation.StartAttack(pIndex);

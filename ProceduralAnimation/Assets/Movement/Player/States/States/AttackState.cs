@@ -10,6 +10,7 @@ public class AttackState : BaseState
     [SerializeField] private int _numberOfClicks = 0;
     [SerializeField] private float _exitStateTime = 0;
     [SerializeField] private float _addForceTime = 0;
+    [SerializeField] private float _addForceAmount = 0;
 
     private float AttackStateReturnDelayLength = 0.2f;
 
@@ -25,7 +26,7 @@ public class AttackState : BaseState
 
     public override void Enter()
     {
-        //Debug.Log("AttackState: Enter");
+        Debug.Log("AttackState: Enter");
         //stateController._hitboxComponent.gameObject.SetActive(true); /* Handled by animation events */
         _exitStateTime = 0;
         _onHolding = false;
@@ -34,12 +35,14 @@ public class AttackState : BaseState
 
     public override void Exit()
     {
-        //Debug.Log("AttackState: Exit");
+        Debug.Log("AttackState: Exit");
         //stateController._hitboxComponent.gameObject.SetActive(false); /* Handled by animation events */
         _stateController.AttackStateReturnDelay = Time.time + AttackStateReturnDelayLength;
         //stateController._hitboxComponent.gameObject.SetActive(false);
         _numberOfClicks = 0;
         //stateController._modelController.ClearAttackBools();
+
+        _stateController._modelController.DoneAttack();
     }
 
     public override Type Tick()
@@ -53,9 +56,9 @@ public class AttackState : BaseState
             return typeof(MovementState);
         }
 
-        if (Time.time > _addForceTime && _onHolding == false)
+        if (Time.time > _addForceTime && Time.time < _exitStateTime - _addForceTime && _onHolding == false)
         {
-            _stateController._rb.AddForce(_stateController._modelController.transform.forward * 20);
+            _stateController._rb.AddForce(_stateController._modelController.transform.forward * _addForceAmount);
         }
 
         // Stunned
@@ -77,7 +80,7 @@ public class AttackState : BaseState
                 ClearInputs();
 
                 // All attacks are 1 second length for now
-                _exitStateTime = Time.time + 1;
+                //_exitStateTime = Time.time + 1;
 
                 _numberOfClicks++;
 
@@ -107,7 +110,8 @@ public class AttackState : BaseState
                     _stateController._modelController.PlayAttack(_numberOfClicks + 3);
 
                     _numberOfClicks++;
-                    _exitStateTime = Time.time + 0.7f;
+                    _exitStateTime = Time.time + 0.4f;
+                    if (_numberOfClicks > 1) _exitStateTime += 0.3f;
                     _addForceTime = Time.time + 0.25f;
 
                     ClearInputs();
@@ -121,9 +125,12 @@ public class AttackState : BaseState
                 {
                     _stateController._modelController.PlayAttack(_numberOfClicks);
 
+                    _exitStateTime = Time.time + _stateController._modelController.attacks[_numberOfClicks].attackTime + _stateController._modelController.attacks[_numberOfClicks].transitionToTime;
+                    //if (_numberOfClicks > 1) _exitStateTime += 0.2f;
+                    _addForceTime = Time.time + _stateController._modelController.attacks[_numberOfClicks].forceForwardTime;
+                    _addForceAmount = _stateController._modelController.attacks[_numberOfClicks].forceForwardAmount;
+
                     _numberOfClicks++;
-                    _exitStateTime = Time.time + 0.6f;
-                    _addForceTime = Time.time + 0.25f;
 
                     ClearInputs();
                 }
