@@ -19,7 +19,7 @@ public class ModelAnimations : MonoBehaviour
     [Header("Interpolation Graphs")]
     [SerializeField] private SOGraph _stepGraph;
     [SerializeField] private SOGraph _fallGraph;
-    [SerializeField] private SOGraph _attackGraph;
+    private SOGraph _attackGraph;
     
     [Space]
     [SerializeField] private float _jumpingTransitionWidth = 1;
@@ -46,7 +46,7 @@ public class ModelAnimations : MonoBehaviour
             return false;
 
         // Increase progress value
-        _attackProgress = Mathf.Min(1, _attackProgress + Time.fixedDeltaTime / _attackLength * _modelController.animSpeed);
+        _attackProgress = Mathf.Min(1, _attackProgress + Time.fixedDeltaTime / _attackLength);
 
         // Set progress value
         if (pDirection)
@@ -58,29 +58,38 @@ public class ModelAnimations : MonoBehaviour
         return _attackProgress == 1;
     }
 
-    public void StartAttack(int pIndex)
+    public void StartAttack(int pIndex, bool pHeavy)
     {
         //Debug.Log("ModelAnim: StartAttack " + pIndex + " tar|cur " + _anim.GetFloat("Attacking Index"));
 
         _attackProgress = 0;
         _anim.SetFloat("Attacking Progress", pIndex == 1 ? 1 : 0);
         //_anim.SetFloat("Attacking Index", pIndex);
-        _attackLength = _modelController.attacks[pIndex].attackTime;
+
+        SOAttack curAttack = _modelController.attacks[pIndex + (pHeavy ? 3 : 0)];
+        _attackLength = curAttack.attackTime;
+        _attackGraph = curAttack.attackGraph;
 
         if (pIndex == 0)
+        {
             _anim.SetFloat("Attacking Index", 0);
+            _anim.SetFloat("Attacking Type", pHeavy ? 1 : 0);
+        }
         else
         {
-            _attackTransitionRate = 1 / _modelController.attacks[pIndex].transitionToTime;
+            _attackTransitionRate = 1 / curAttack.transitionToTime;
 
-            StopCoroutine("AttackingTransition");
-            StartCoroutine("AttackingTransition", pIndex);
+            StopCoroutine("AttackingTypeTransition");
+            StartCoroutine("AttackingTypeTransition", pHeavy ? 1 : 0);
+
+            StopCoroutine("AttackingIndexTransition");
+            StartCoroutine("AttackingIndexTransition", pIndex);
         }
     }
 
-    private IEnumerator AttackingTransition(float pIndex)
+    private IEnumerator AttackingIndexTransition(float pIndex)
     {
-        Debug.Log("AttackingTransition Start");
+        //Debug.Log("AttackingIndexTransition Start");
         _doneAttackTransition = false;
         float curIndex = _anim.GetFloat("Attacking Index");
 
@@ -93,7 +102,25 @@ public class ModelAnimations : MonoBehaviour
 
         _anim.SetFloat("Attacking Index", pIndex);
         _doneAttackTransition = true;
-        Debug.Log("AttackingTransition End");
+        //Debug.Log("AttackingIndexTransition End");
+    }
+
+    private IEnumerator AttackingTypeTransition(float pType)
+    {
+        //Debug.Log("AttackingTypeTransition Start");
+        _doneAttackTransition = false;
+        float curType = _anim.GetFloat("Attacking Type");
+
+        while ((curType < pType && pType == 1) || (curType > pType && pType == 0))
+        {
+            curType += _attackTransitionRate * Time.deltaTime * (pType == 0 ? -1 : 1);
+            _anim.SetFloat("Attacking Type", curType);
+            yield return null;
+        }
+
+        _anim.SetFloat("Attacking Type", pType);
+        _doneAttackTransition = true;
+        //Debug.Log("AttackingTypeTransition End");
     }
     #endregion
 
@@ -136,7 +163,7 @@ public class ModelAnimations : MonoBehaviour
 
     private float increaseProgress(float pProgress, float pMult)
     {
-        pProgress += Time.fixedDeltaTime * pMult * _modelController.animSpeed;
+        pProgress += Time.fixedDeltaTime * pMult;
         if (pProgress >= 1)
             pProgress -= 1;
 

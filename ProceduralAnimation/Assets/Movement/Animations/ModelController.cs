@@ -9,19 +9,20 @@ public class ModelController : MonoBehaviour
 
     [HideInInspector] public bool onGround = false;
     [HideInInspector] public Vector3 acceleration;
-    [Range(0, 1)] public float animSpeed = 1;
 
     private ModelWeights _modelWeights;
     private ModelAnimations _modelAnimation;
     private ModelMovement _modelMovement;
 
     [HideInInspector] public Vector3 horizontalVelocity;
-    private bool _Attacking;
+    // 0 - done attack, 1 - attacking, 2 - done attacking but on delay
+    private int _AttackingState;
     private bool _AttackingDirection;
     private bool _Dodging;
 
     [Space]
     public SOAttack[] attacks;
+    private float _doneAttackDelay = 0;
     
     void Start()
     {
@@ -46,12 +47,14 @@ public class ModelController : MonoBehaviour
 
         if (_Dodging == false)
         {
-            if (_Attacking == true)
+            if (_AttackingState == 1)
             {
                 if (_modelAnimation.AttackingAnim(_AttackingDirection))
-                    DoneAttack();
+                {
+                    StartCoroutine("DoneAttackWithDelay");
+                }
             }
-            else
+            else if (_AttackingState == 0)
             {
                 _modelWeights.UpdateWeights();
             }
@@ -67,18 +70,38 @@ public class ModelController : MonoBehaviour
     }
 
     #region Attacking
-    public void PlayAttack(int pIndex)
+    public void PlayAttack(int pIndex, bool pHeavy)
     {
-        _Attacking = true;
+        SOAttack curAttack = attacks[pIndex + (pHeavy ? 3 : 0)];
+
+        StopCoroutine("DoneAttackWithDelay");
+        StopCoroutine("PlayAttackWithDelay");
+        StartCoroutine("PlayAttackWithDelay", curAttack.holdStartPosTime);
+
         _AttackingDirection = pIndex == 1 ? false : true;
+        _doneAttackDelay = curAttack.holdEndPosTime;
         _modelMovement.DisableRotation = true;
         _modelWeights.SetWeights(0, 0, 1, 0);
-        _modelAnimation.StartAttack(pIndex);
+        _modelAnimation.StartAttack(pIndex, pHeavy);
+    }
+
+    private IEnumerator PlayAttackWithDelay(float pDelay)
+    {
+        _AttackingState = 2;
+        yield return new WaitForSeconds(pDelay);
+        _AttackingState = 1;
+    }
+
+    private IEnumerator DoneAttackWithDelay()
+    {
+        _AttackingState = 2;
+        yield return new WaitForSeconds(_doneAttackDelay);
+        DoneAttack();
     }
 
     public void DoneAttack()
     {
-        _Attacking = false;
+        _AttackingState = 0;
         _modelMovement.DisableRotation = false;
         _modelWeights.SetWeights(0, 0, 0, 0);
     }

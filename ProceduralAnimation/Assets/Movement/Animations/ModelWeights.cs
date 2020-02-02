@@ -61,7 +61,7 @@ public class ModelWeights : MonoBehaviour
         if (currentValue == pTargetValue) return;
 
         // Lerp value towards target
-        currentValue = Mathf.Lerp(currentValue, pTargetValue, _weightChangeDampening * Time.deltaTime * _modelController.animSpeed);
+        currentValue = Mathf.Lerp(currentValue, pTargetValue, _weightChangeDampening * Time.deltaTime);
 
         // If in deadzone just snap to value
         if (Mathf.Abs(currentValue - pTargetValue) < _weightChangeDeadzone)

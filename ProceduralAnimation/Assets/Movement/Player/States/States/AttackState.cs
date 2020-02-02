@@ -10,6 +10,7 @@ public class AttackState : BaseState
     [SerializeField] private int _numberOfClicks = 0;
     [SerializeField] private float _exitStateTime = 0;
     [SerializeField] private float _addForceTime = 0;
+    [SerializeField] private float _stopForceTime = 0;
     [SerializeField] private float _addForceAmount = 0;
 
     private float AttackStateReturnDelayLength = 0.2f;
@@ -56,7 +57,7 @@ public class AttackState : BaseState
             return typeof(MovementState);
         }
 
-        if (Time.time > _addForceTime && Time.time < _exitStateTime - _addForceTime && _onHolding == false)
+        if (Time.time > _addForceTime && Time.time < _stopForceTime && _onHolding == false)
         {
             _stateController._rb.AddForce(_stateController._modelController.transform.forward * _addForceAmount);
         }
@@ -75,7 +76,7 @@ public class AttackState : BaseState
         if (_numberOfClicks <= 2)
         {
             // On Release Heavy (Called Once)
-            if ((_stateController.heavyAttackinput == 0 || chargeTimer >= 2) && _onHolding == true)
+            /*if ((_stateController.heavyAttackinput == 0 || chargeTimer >= 2) && _onHolding == true)
             {
                 ClearInputs();
 
@@ -102,17 +103,21 @@ public class AttackState : BaseState
             }
 
             // Can only input for next attack if done previous attack
-            else if (_exitStateTime == 0 || Time.time > _exitStateTime)
+            else*/ if (_exitStateTime == 0 || Time.time > _exitStateTime)
             {
                 // On Pressed Heavy (Called Once)
                 if (_stateController.heavyAttackinput == 1)
                 {
-                    _stateController._modelController.PlayAttack(_numberOfClicks + 3);
+                    SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks + 3];
+
+                    _stateController._modelController.PlayAttack(_numberOfClicks, true);
+
+                    _exitStateTime = Time.time + curAttack.attackTime + curAttack.transitionToTime + curAttack.holdStartPosTime + curAttack.holdEndPosTime;
+                    _addForceTime = Time.time + curAttack.forceForwardTime;
+                    _stopForceTime = Time.time + curAttack.stopForceForwardTime;
+                    _addForceAmount = curAttack.forceForwardAmount;
 
                     _numberOfClicks++;
-                    _exitStateTime = Time.time + 0.4f;
-                    if (_numberOfClicks > 1) _exitStateTime += 0.3f;
-                    _addForceTime = Time.time + 0.25f;
 
                     ClearInputs();
 
@@ -123,12 +128,14 @@ public class AttackState : BaseState
                 // On Pressed Light Attack (Called Once)
                 else if (_stateController.lightAttackinput == 1)
                 {
-                    _stateController._modelController.PlayAttack(_numberOfClicks);
+                    SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks];
 
-                    _exitStateTime = Time.time + _stateController._modelController.attacks[_numberOfClicks].attackTime + _stateController._modelController.attacks[_numberOfClicks].transitionToTime;
-                    //if (_numberOfClicks > 1) _exitStateTime += 0.2f;
-                    _addForceTime = Time.time + _stateController._modelController.attacks[_numberOfClicks].forceForwardTime;
-                    _addForceAmount = _stateController._modelController.attacks[_numberOfClicks].forceForwardAmount;
+                    _stateController._modelController.PlayAttack(_numberOfClicks, false);
+
+                    _exitStateTime = Time.time + curAttack.attackTime + curAttack.transitionToTime + curAttack.holdStartPosTime + curAttack.holdEndPosTime;
+                    _addForceTime = Time.time + curAttack.forceForwardTime;
+                    _stopForceTime = Time.time + curAttack.stopForceForwardTime;
+                    _addForceAmount = curAttack.forceForwardAmount;
 
                     _numberOfClicks++;
 

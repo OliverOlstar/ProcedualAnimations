@@ -38,7 +38,7 @@ public class ModelMovement : MonoBehaviour
         if (_modelController.horizontalVelocity.magnitude > _rotationDeadzone)
         {
             Quaternion targetQuaternion = Quaternion.LookRotation(new Vector3(_modelController.horizontalVelocity.z, 0, -_modelController.horizontalVelocity.x), Vector3.up);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetQuaternion, Time.deltaTime * _rotationDampening * _modelController.animSpeed);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, targetQuaternion, Time.deltaTime * _rotationDampening);
         }
     }
 
@@ -54,8 +54,8 @@ public class ModelMovement : MonoBehaviour
             eulerAngles.z = eulerAngles.z - 360;
 
         // Lerp tilting values
-        float horizontalAngle = Mathf.Lerp(eulerAngles.x, -_modelController.acceleration.x * _tiltingMult, Time.deltaTime * _tiltingDampening * _modelController.animSpeed);
-        float verticalAngle = Mathf.Lerp(eulerAngles.z, -_modelController.acceleration.z * _tiltingMult, Time.deltaTime * _tiltingDampening * _modelController.animSpeed);
+        float horizontalAngle = Mathf.Lerp(eulerAngles.x, -_modelController.acceleration.x * _tiltingMult, Time.deltaTime * _tiltingDampening);
+        float verticalAngle = Mathf.Lerp(eulerAngles.z, -_modelController.acceleration.z * _tiltingMult, Time.deltaTime * _tiltingDampening);
 
         eulerAngles = new Vector3(horizontalAngle, eulerAngles.y, verticalAngle);
 

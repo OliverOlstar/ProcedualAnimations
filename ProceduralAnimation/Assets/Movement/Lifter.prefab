@@ -316,10 +316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stepMult: 1
   _fallMult: 1.6
-  _attackLength: 1
   _stepGraph: {fileID: 11400000, guid: d105e3352e7b8e94f82be1c6df8d9084, type: 2}
   _fallGraph: {fileID: 11400000, guid: 5d40a20a35f8b154e9204417dc7022f5, type: 2}
-  _attackGraph: {fileID: 11400000, guid: 75e55119c274554469b812e4c83bfa62, type: 2}
   _jumpingTransitionWidth: 4.6
 --- !u!114 &1690672448
 MonoBehaviour:
@@ -351,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b135975d9f46604ba998397074762fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepWeight: 0
+  stepWeight: 1
   jumpWeight: 0
   crouchWeight: 0
   attackWeight: 0
@@ -374,6 +372,10 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   animSpeed: 1
   horizontalVelocity: {x: 0, y: 0, z: 0}
+  attacks:
+  - {fileID: 11400000, guid: 365918b984a3a1c49ba47b65cdda9f9e, type: 2}
+  - {fileID: 11400000, guid: 8f7ea7fe693a34143a48a0b80099411c, type: 2}
+  - {fileID: 11400000, guid: 14a66436df1065d46bf9e6b1513243d2, type: 2}
 --- !u!1001 &1953331641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -394,7 +396,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 4a2de2798b4d06848961b912d15334e3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.7
+      value: -1.6
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 4a2de2798b4d06848961b912d15334e3,
         type: 3}
@@ -446,6 +448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lizzy_Animationtest001
       objectReference: {fileID: 0}
+    - target: {fileID: 8411194900305246836, guid: 4a2de2798b4d06848961b912d15334e3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46417592d8bf50d4e98b2f1060df4fb9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a2de2798b4d06848961b912d15334e3, type: 3}
 --- !u!1 &8296172667780866224 stripped

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b2f966243225448bf75bae412a56c6, type: 3}
   m_Name: LightAttack2
   m_EditorClassIdentifier: 
-  attackTime: 0.3
+  attackTime: 0.15
+  attackGraph: {fileID: 11400000, guid: 75e55119c274554469b812e4c83bfa62, type: 2}
+  holdEndPosTime: 0.1
+  holdStartPosTime: 0
   transitionToTime: 0.15
   forceForwardTime: 0.2
-  forceForwardAmount: 50
+  stopForceForwardTime: 0.3
+  forceForwardAmount: 80

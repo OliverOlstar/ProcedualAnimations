@@ -24,6 +24,48 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!206 &-8541832937443120241
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LightAttack 3 Blend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 3995703482289807089, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 9178870937710201634, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -3111007347788928042, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Attacking Progress
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!206 &-8043533615635627058
 BlendTree:
   m_ObjectHideFlags: 1
@@ -54,6 +96,48 @@ BlendTree:
   m_MinThreshold: -1
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
+--- !u!206 &-8019505020619222218
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HeavyAttack 1 Blend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 2571430521933788143, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 5469981529557973821, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -1925155169181171117, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Attacking Progress
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
 --- !u!1107 &-6778870422542761266
@@ -184,16 +268,16 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
---- !u!206 &-2339198968385956368
+--- !u!206 &-2722672701417119014
 BlendTree:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlendTree
+  m_Name: LightAttack 2 Blend
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 2571430521933788143, guid: 4a2de2798b4d06848961b912d15334e3,
+    m_Motion: {fileID: -6850174397949243962, guid: 4a2de2798b4d06848961b912d15334e3,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -202,16 +286,7 @@ BlendTree:
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 5469981529557973821, guid: 4a2de2798b4d06848961b912d15334e3,
-      type: 3}
-    m_Threshold: 0.5
-    m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Stepping Weight
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: -1925155169181171117, guid: 4a2de2798b4d06848961b912d15334e3,
+    m_Motion: {fileID: 1168831444064213575, guid: 4a2de2798b4d06848961b912d15334e3,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
@@ -220,9 +295,48 @@ BlendTree:
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   m_BlendParameter: Attacking Progress
-  m_BlendParameterY: Stepping Weight
+  m_BlendParameterY: Blend
   m_MinThreshold: 0
   m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
+--- !u!206 &-2339198968385956368
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LightAttack Index
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 3166215782221194805}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -2722672701417119014}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -8541832937443120241}
+    m_Threshold: 2
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Attacking Index
+  m_BlendParameterY: Stepping Weight
+  m_MinThreshold: 0
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -283,6 +397,48 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!206 &-371381963395831526
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HeavyAttack 3 Blend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 3995703482289807089, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 9178870937710201634, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -3111007347788928042, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Attacking Progress
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -317,6 +473,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Dodge Weight
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Attacking Type
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -540,16 +702,16 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
---- !u!206 &4094605975945222167
+--- !u!206 &3166215782221194805
 BlendTree:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlendTree
+  m_Name: LightAttack 1 Blend
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -6850174397949243962, guid: 4a2de2798b4d06848961b912d15334e3,
+    m_Motion: {fileID: 2571430521933788143, guid: 4a2de2798b4d06848961b912d15334e3,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -558,7 +720,16 @@ BlendTree:
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1168831444064213575, guid: 4a2de2798b4d06848961b912d15334e3,
+    m_Motion: {fileID: 5469981529557973821, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -1925155169181171117, guid: 4a2de2798b4d06848961b912d15334e3,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
@@ -567,9 +738,48 @@ BlendTree:
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
   m_BlendParameter: Attacking Progress
-  m_BlendParameterY: Stepping Weight
+  m_BlendParameterY: Blend
   m_MinThreshold: 0
   m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
+--- !u!206 &4094605975945222167
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HeavyAttack Index
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -8019505020619222218}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8709406020074019240}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -371381963395831526}
+    m_Threshold: 2
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Attacking Index
+  m_BlendParameterY: Stepping Weight
+  m_MinThreshold: 0
+  m_MaxThreshold: 2
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -741,6 +951,39 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 3
+--- !u!206 &8709406020074019240
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HeavyAttack 2 Blend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -6850174397949243962, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 1168831444064213575, guid: 4a2de2798b4d06848961b912d15334e3,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Stepping Weight
+    m_Mirror: 0
+  m_BlendParameter: Attacking Progress
+  m_BlendParameterY: Blend
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!206 &8813754492429047960
 BlendTree:
   m_ObjectHideFlags: 1
@@ -798,7 +1041,7 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attack Index
+  m_Name: Attack Type
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: -2339198968385956368}
@@ -816,18 +1059,10 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Stepping Weight
     m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 5643641547747757263}
-    m_Threshold: 2
-    m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Stepping Weight
-    m_Mirror: 0
-  m_BlendParameter: Attacking Index
+  m_BlendParameter: Attacking Type
   m_BlendParameterY: Blend
   m_MinThreshold: 0
-  m_MaxThreshold: 2
+  m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
