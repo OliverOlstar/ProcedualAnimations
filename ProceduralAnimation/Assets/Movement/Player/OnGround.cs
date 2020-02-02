@@ -55,7 +55,7 @@ public class OnGround : MonoBehaviour
             if (_stateController.onGround == false)
             {
                 _stateController.onGround = true;
-                _stateController._modelController.AddCrouching(_downForce / _downForceTerminal, 0.2f, 0.6f);
+                _stateController._modelController.AddCrouching(_downForce / _downForceTerminal, 0.08f, 0.25f);
             }
 
             _lastPoint = hit.point;

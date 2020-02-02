@@ -31,6 +31,9 @@ public class ModelMovement : MonoBehaviour
 
     public void FacingSelf()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+            DisableRotation = !DisableRotation;
+
         if (DisableRotation) 
             return;
 

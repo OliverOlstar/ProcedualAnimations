@@ -42,7 +42,7 @@ public class MovementComponent : MonoBehaviour
             _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
             _rb.AddForce(jumpForceUp * Vector3.up, ForceMode.Impulse);
 
-            _stateController._modelController.AddCrouching(1, 0.2f, 0.1f);
+            _stateController._modelController.AddCrouching(1, 0.1f, 0.05f);
         }
     }
 

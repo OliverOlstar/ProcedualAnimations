@@ -20,7 +20,6 @@ public class ModelController : MonoBehaviour
     private bool _AttackingDirection;
     private bool _Dodging;
 
-    [Space]
     public SOAttack[] attacks;
     private float _doneAttackDelay = 0;
     
