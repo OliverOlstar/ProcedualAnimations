@@ -16,11 +16,8 @@ public class DodgeState : BaseState
     {
         Debug.Log("DodgeState: Enter");
 
-        //Dodge Direction
-        Vector2 direction = stateController.LastMoveDirection.normalized;
-
         //Start Dodge
-        stateController._dodgeComponent.Dodge(stateController.dodgeInput == 0, direction);
+        stateController._dodgeComponent.Dodge(stateController.dodgeInput == 0, stateController.LastMoveDirection.normalized);
 
         //Remove Input
         stateController.dodgeInput = -1.0f;

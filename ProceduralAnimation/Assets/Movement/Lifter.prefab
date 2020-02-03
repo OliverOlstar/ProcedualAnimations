@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &3208462290227582154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468533661052887787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34fdb3d3058ea048bcc96ebd32f747d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stepMult: 1
-  _fallMult: 1.6
-  _stepGraph: {fileID: 11400000, guid: d105e3352e7b8e94f82be1c6df8d9084, type: 2}
-  _fallGraph: {fileID: 11400000, guid: 5d40a20a35f8b154e9204417dc7022f5, type: 2}
-  _jumpingTransitionWidth: 4.6
 --- !u!114 &1656246822360935090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,6 +18,23 @@ MonoBehaviour:
   _tiltingMult: 9
   _flipGraph: {fileID: 11400000, guid: 5d40a20a35f8b154e9204417dc7022f5, type: 2}
   DisableRotation: 0
+--- !u!114 &3208462290227582154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468533661052887787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34fdb3d3058ea048bcc96ebd32f747d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stepMult: 1
+  _fallMult: 1.6
+  _stepGraph: {fileID: 11400000, guid: d105e3352e7b8e94f82be1c6df8d9084, type: 2}
+  _fallGraph: {fileID: 11400000, guid: 5d40a20a35f8b154e9204417dc7022f5, type: 2}
+  _jumpingTransitionWidth: 4.6
 --- !u!114 &5068451087636149633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   crouchWeight: 0
   attackWeight: 0
   dodgeWeight: 0
-  _weightChangeDampening: 10
+  _weightChangeDampening: 8
   _weightChangeDeadzone: 0.01
 --- !u!114 &6526132147228866398
 MonoBehaviour:
@@ -450,6 +450,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lizzy_Animation002
       objectReference: {fileID: 0}
+    - target: {fileID: 8411194900305246836, guid: 28b42aacda8121042b41f2afc8a2f12b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46417592d8bf50d4e98b2f1060df4fb9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28b42aacda8121042b41f2afc8a2f12b, type: 3}
 --- !u!1 &468533661052887787 stripped
