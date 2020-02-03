@@ -17,6 +17,6 @@ MonoBehaviour:
   holdEndPosTime: 0.2
   holdStartPosTime: 0.18
   transitionToTime: 0.15
-  forceForwardTime: 0.3
-  stopForceForwardTime: 0.5
+  forceForwardTime: 0.1
+  stopForceForwardTime: 0.3
   forceForwardAmount: 100

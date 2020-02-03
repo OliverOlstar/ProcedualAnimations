@@ -15,9 +15,10 @@ public class ModelController : MonoBehaviour
     private ModelMovement _modelMovement;
 
     [HideInInspector] public Vector3 horizontalVelocity;
-    // 0 - done attack, 1 - attacking, 2 - done attacking but on delay
+    // 0 - done attack, 1 - attacking, 2 - sitting on a delay between attacking
     private int _AttackingState;
     private bool _AttackingDirection;
+
     private bool _Dodging;
 
     public SOAttack[] attacks;
@@ -69,13 +70,23 @@ public class ModelController : MonoBehaviour
     }
 
     #region Attacking
-    public void PlayAttack(int pIndex, bool pHeavy)
+    public void PlayAttack(int pIndex, bool pHeavy, bool pChargable)
     {
         SOAttack curAttack = attacks[pIndex + (pHeavy ? 3 : 0)];
 
         StopCoroutine("DoneAttackWithDelay");
         StopCoroutine("PlayAttackWithDelay");
-        StartCoroutine("PlayAttackWithDelay", curAttack.holdStartPosTime);
+
+        // Chargeable Attack - wait for done charging before starting attack
+        if (pChargable == true)
+        {
+            _AttackingState = 2;
+        }
+        // Non-Chargable Attack
+        else
+        {
+            StartCoroutine("PlayAttackWithDelay", curAttack.holdStartPosTime);
+        }
 
         _AttackingDirection = pIndex == 1 ? false : true;
         _doneAttackDelay = curAttack.holdEndPosTime;
@@ -103,6 +114,12 @@ public class ModelController : MonoBehaviour
         _AttackingState = 0;
         _modelMovement.DisableRotation = false;
         _modelWeights.SetWeights(0, 0, 0, 0);
+    }
+
+    public void DoneChargingAttack()
+    {
+        // End Charging
+        _AttackingState = 1;
     }
     #endregion
 

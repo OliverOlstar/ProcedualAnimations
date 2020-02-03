@@ -43,7 +43,7 @@ public class AttackState : BaseState
         _numberOfClicks = 0;
         //stateController._modelController.ClearAttackBools();
 
-        _stateController._modelController.DoneAttack();
+        //_stateController._modelController.DoneAttack();
     }
 
     public override Type Tick()
@@ -73,82 +73,121 @@ public class AttackState : BaseState
 
     public void CheckForAttack()
     {
+        // Cannot go beyond combo limit
         if (_numberOfClicks <= 2)
         {
-            // On Release Heavy (Called Once)
-            /*if ((_stateController.heavyAttackinput == 0 || chargeTimer >= 2) && _onHolding == true)
+            // If holding don't listen for more attacks, listen for release else run holding code.
+            if (_onHolding == true)
             {
-                ClearInputs();
-
-                // All attacks are 1 second length for now
-                //_exitStateTime = Time.time + 1;
-
-                _numberOfClicks++;
-
-                _onHolding = false;
-
-                //stateController._modelController.setAnimSpeed(1f);
-            }
-
-            // On Holding Heavy
-            else if (_onHolding)
-            {
-                chargeTimer += Time.deltaTime;
-
-                if (chargeTimer >= 0.1f)
+                // ON RELEASE HEAVY (Called Once)
+                if (_stateController.heavyAttackinput == 0 || chargeTimer >= 2)
                 {
-                    //string animBoolName = "Vertical" + (numberOfClicks + 1).ToString();
-                    //stateController._modelController.modifyAnimSpeed(-4f * Time.deltaTime);
-                }    
-            }
-
-            // Can only input for next attack if done previous attack
-            else*/ if (_exitStateTime == 0 || Time.time > _exitStateTime)
-            {
-                // On Pressed Heavy (Called Once)
-                if (_stateController.heavyAttackinput == 1)
-                {
-                    SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks + 3];
-
-                    _stateController._modelController.PlayAttack(_numberOfClicks, true);
-
-                    _exitStateTime = Time.time + curAttack.attackTime + curAttack.transitionToTime + curAttack.holdStartPosTime + curAttack.holdEndPosTime;
-                    _addForceTime = Time.time + curAttack.forceForwardTime;
-                    _stopForceTime = Time.time + curAttack.stopForceForwardTime;
-                    _addForceAmount = curAttack.forceForwardAmount;
-
-                    _numberOfClicks++;
-
+                    ReleaseHeavyAttack();
                     ClearInputs();
-
-                    //chargeTimer = 0;
-                    //_onHolding = true;
                 }
+                // ON HOLDING HEAVY
+                else
+                {
+                    chargeTimer += Time.deltaTime;
 
-                // On Pressed Light Attack (Called Once)
+                    // If Reached max charge release heavy attack
+                    if (chargeTimer >= 1f)
+                    {
+                        ReleaseHeavyAttack();
+                    }
+                }
+            }
+            // Can only input for next attack if done previous attack
+            else if (Time.time > _exitStateTime || _exitStateTime == 0)
+            {
+                // ON RELEASED HEAVY BEFORE CHARGING STARTED (Called Once)
+                if (_stateController.heavyAttackinput == 0)
+                {
+                    PressedHeavyAttack();
+                    ReleaseHeavyAttack();
+                    ClearInputs();
+                }
+                // ON PRESSED HEAVY (Called Once)
+                else if (_stateController.heavyAttackinput == 1)
+                {
+                    PressedHeavyAttack();
+                    ClearInputs();
+                }
+                // ON PRESSED LIGHT (Called Once)
                 else if (_stateController.lightAttackinput == 1)
                 {
-                    SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks];
-
-                    _stateController._modelController.PlayAttack(_numberOfClicks, false);
-
-                    _exitStateTime = Time.time + curAttack.attackTime + curAttack.transitionToTime + curAttack.holdStartPosTime + curAttack.holdEndPosTime;
-                    _addForceTime = Time.time + curAttack.forceForwardTime;
-                    _stopForceTime = Time.time + curAttack.stopForceForwardTime;
-                    _addForceAmount = curAttack.forceForwardAmount;
-
-                    _numberOfClicks++;
-
+                    PressedLightAttack();
                     ClearInputs();
                 }
             }
         }
     }
 
+    #region Pressed & Release
+    private void PressedLightAttack()
+    {
+        SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks];
+        float PreAttackTime = curAttack.transitionToTime + curAttack.holdStartPosTime;
+        SetAttackValues(curAttack, PreAttackTime);
+
+        _stateController._modelController.PlayAttack(_numberOfClicks, false, false);
+
+        // TODO set player hitbox damage & knockback
+
+        _numberOfClicks++;
+    }
+
+    private void PressedHeavyAttack()
+    {
+        _stateController._modelController.PlayAttack(_numberOfClicks, true, true);
+
+        _exitStateTime = 0;
+
+        chargeTimer = 0;
+        _onHolding = true;
+    }
+
+    private void ReleaseHeavyAttack()
+    {
+        SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks + 3];
+        SetAttackValues(curAttack);
+
+        // TODO send through how long attack was charged for and use that to know how fast the attack should move.
+        _stateController._modelController.DoneChargingAttack();
+
+        // TODO set player hitbox damage & knockback (including charging)
+
+        _onHolding = false;
+        _numberOfClicks++;
+    }
+
+    private void ReleaseHeavyAttackBeforeCharging()
+    {
+        SOAttack curAttack = _stateController._modelController.attacks[_numberOfClicks + 3];
+        float PreAttackTime = curAttack.transitionToTime + curAttack.holdStartPosTime;
+        SetAttackValues(curAttack, PreAttackTime);
+
+        _stateController._modelController.PlayAttack(_numberOfClicks, true, false);
+
+        // TODO set player hitbox damage & knockback
+
+        _numberOfClicks++;
+    }
+    #endregion
+
+    #region Set & Clear
+    private void SetAttackValues(SOAttack pAttackVars, float pPreAttackTime = 0)
+    {
+        _exitStateTime = Time.time + pAttackVars.attackTime + pPreAttackTime + pAttackVars.holdEndPosTime;
+        _addForceTime = Time.time + pAttackVars.forceForwardTime + pPreAttackTime;
+        _stopForceTime = Time.time + pAttackVars.stopForceForwardTime + pPreAttackTime;
+        _addForceAmount = pAttackVars.forceForwardAmount;
+    }
 
     private void ClearInputs()
     {
         _stateController.lightAttackinput = -1.0f;
         _stateController.heavyAttackinput = -1.0f;
     }
+    #endregion
 }

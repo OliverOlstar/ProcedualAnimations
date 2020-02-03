@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.2
   attackGraph: {fileID: 11400000, guid: 75e55119c274554469b812e4c83bfa62, type: 2}
-  holdEndPosTime: 0.2
-  holdStartPosTime: 0.4
-  transitionToTime: 0.25
-  chargeable: 1
-  forceForwardTime: 0.7
-  stopForceForwardTime: 0.8
-  forceForwardAmount: 80
+  holdEndPosTime: 0.3
+  holdStartPosTime: 0
+  transitionToTime: 0.15
+  forceForwardTime: 0.05
+  stopForceForwardTime: 0.15
+  forceForwardAmount: 100

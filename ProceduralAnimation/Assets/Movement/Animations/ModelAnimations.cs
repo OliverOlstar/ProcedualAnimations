@@ -28,7 +28,7 @@ public class ModelAnimations : MonoBehaviour
     private float _attackLength = 1;
     private float _attackTransitionRate = 0;
 
-    private bool _doneAttackTransition = true;
+    private int _doneAttackTransition = 0;
 
     public void Init(ModelController pController, Rigidbody pRb, Animator pAnim)
     {
@@ -42,7 +42,7 @@ public class ModelAnimations : MonoBehaviour
     public bool AttackingAnim(bool pDirection)
     {
         // Return if still transtioning to next attack
-        if (_doneAttackTransition == false)
+        if (_doneAttackTransition < 2)
             return false;
 
         // Increase progress value
@@ -60,24 +60,27 @@ public class ModelAnimations : MonoBehaviour
 
     public void StartAttack(int pIndex, bool pHeavy)
     {
-        //Debug.Log("ModelAnim: StartAttack " + pIndex + " tar|cur " + _anim.GetFloat("Attacking Index"));
-
+        // Reset attack progress
         _attackProgress = 0;
         _anim.SetFloat("Attacking Progress", pIndex == 1 ? 1 : 0);
-        //_anim.SetFloat("Attacking Index", pIndex);
 
+        // Get SOAttack values
         SOAttack curAttack = _modelController.attacks[pIndex + (pHeavy ? 3 : 0)];
         _attackLength = curAttack.attackTime;
         _attackGraph = curAttack.attackGraph;
 
         if (pIndex == 0)
         {
+            // Snap to first attack
             _anim.SetFloat("Attacking Index", 0);
             _anim.SetFloat("Attacking Type", pHeavy ? 1 : 0);
+            _doneAttackTransition = 2;
         }
         else
         {
+            // Start transitions to next attack
             _attackTransitionRate = 1 / curAttack.transitionToTime;
+            _doneAttackTransition = 0;
 
             StopCoroutine("AttackingTypeTransition");
             StartCoroutine("AttackingTypeTransition", pHeavy ? 1 : 0);
@@ -87,12 +90,13 @@ public class ModelAnimations : MonoBehaviour
         }
     }
 
+    // Transition between attacks in combo
     private IEnumerator AttackingIndexTransition(float pIndex)
     {
-        //Debug.Log("AttackingIndexTransition Start");
-        _doneAttackTransition = false;
+        // Starting Value
         float curIndex = _anim.GetFloat("Attacking Index");
 
+        // Transition to Target Value
         while (curIndex < pIndex)
         {
             curIndex += _attackTransitionRate * Time.deltaTime;
@@ -100,17 +104,18 @@ public class ModelAnimations : MonoBehaviour
             yield return null;
         }
 
+        // Snap to Target Value
         _anim.SetFloat("Attacking Index", pIndex);
-        _doneAttackTransition = true;
-        //Debug.Log("AttackingIndexTransition End");
+        _doneAttackTransition++;
     }
 
+    // Transition between heavy & light attacks
     private IEnumerator AttackingTypeTransition(float pType)
     {
-        //Debug.Log("AttackingTypeTransition Start");
-        _doneAttackTransition = false;
+        // Starting Value
         float curType = _anim.GetFloat("Attacking Type");
 
+        // Transition to Target Value
         while ((curType < pType && pType == 1) || (curType > pType && pType == 0))
         {
             curType += _attackTransitionRate * Time.deltaTime * (pType == 0 ? -1 : 1);
@@ -118,9 +123,9 @@ public class ModelAnimations : MonoBehaviour
             yield return null;
         }
 
+        // Snap to Target Value
         _anim.SetFloat("Attacking Type", pType);
-        _doneAttackTransition = true;
-        //Debug.Log("AttackingTypeTransition End");
+        _doneAttackTransition++;
     }
     #endregion
 

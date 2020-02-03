@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b2f966243225448bf75bae412a56c6, type: 3}
   m_Name: HeavyAttack1
   m_EditorClassIdentifier: 
-  attackTime: 0.5
+  attackTime: 0.45
   attackGraph: {fileID: 11400000, guid: 75e55119c274554469b812e4c83bfa62, type: 2}
-  holdEndPosTime: 0.05
-  holdStartPosTime: 0.5
+  holdEndPosTime: 0.15
+  holdStartPosTime: 0
   transitionToTime: 0
-  chargeable: 1
-  forceForwardTime: 0.7
-  stopForceForwardTime: 0.8
-  forceForwardAmount: 80
+  forceForwardTime: 0.2
+  stopForceForwardTime: 0.3
+  forceForwardAmount: 100
