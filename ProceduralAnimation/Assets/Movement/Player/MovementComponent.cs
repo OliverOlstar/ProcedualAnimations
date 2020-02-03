@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class MovementComponent : MonoBehaviour
 {
-    [Header("Components")]
     private Rigidbody _rb;
     private PlayerStateController _stateController;
 
     [Header("Movement")]
-    public float moveAcceleration = 1.0f;
+    [SerializeField] private float _moveAcceleration = 1.0f;
     public float maxSpeed = 4.0f;
 
     public float inputInfluence = 1.0f;
 
     [Header("Jump")]
-    public float jumpForceUp = 4;
+    [SerializeField] private float _jumpForceUp = 4;
+    [SerializeField] private float _jumpForceVelocityMult = 1.7f;
 
+    [Space]
     public bool disableMovement = false;
 
     void Start()
@@ -39,8 +40,8 @@ public class MovementComponent : MonoBehaviour
         if (_stateController.onGround && disableMovement == false)
         {
             //Add force
-            _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-            _rb.AddForce(jumpForceUp * Vector3.up, ForceMode.Impulse);
+            _rb.velocity = new Vector3(_stateController._rb.velocity.x * _jumpForceVelocityMult, 0, _stateController._rb.velocity.z * _jumpForceVelocityMult);
+            _rb.AddForce(_jumpForceUp * Vector3.up, ForceMode.Impulse);
 
             _stateController._modelController.AddCrouching(1, 0.1f, 0.05f);
         }
@@ -50,14 +51,18 @@ public class MovementComponent : MonoBehaviour
     {
         //Move Vector
         Vector3 move = new Vector3(_stateController.moveInput.x, 0, _stateController.moveInput.y);
-        if (Camera.main != null)
-            move = Camera.main.transform.TransformDirection(move);
+        move = _stateController._Camera.TransformDirection(move);
         move.y = 0;
-        move = move.normalized * Time.deltaTime * moveAcceleration * inputInfluence;
+        move = move.normalized * Time.deltaTime * _moveAcceleration * inputInfluence;
 
         //Moving the player
-        if (new Vector3(_rb.velocity.x, 0, _rb.velocity.z).magnitude < maxSpeed)
+        Vector3 horizontalVelocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+        float nextMagnitudeWithInput = (horizontalVelocity + move * Time.deltaTime).magnitude;
+
+        if (horizontalVelocity.magnitude < maxSpeed || nextMagnitudeWithInput <= horizontalVelocity.magnitude)
+        {
             _rb.AddForce(move);
+        }
 
         _stateController._modelController.acceleration = move.normalized;
         _stateController._modelController.onGround = _stateController.onGround;

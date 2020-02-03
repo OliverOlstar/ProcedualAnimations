@@ -70,15 +70,15 @@ AvatarMask:
   - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1
     m_Weight: 1
   - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3/JNT_Tail1_4
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3/JNT_Tail1_4/JNT_Tail1_5
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Lizz/JNT_Master/JNT_Hips/JNT_Tail1_1/JNT_Tail1_2/JNT_Tail1_3/JNT_Tail1_4/JNT_Tail1_5/JNT_Tail1_6
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: SM_Lizzy
     m_Weight: 1
   - m_Path: SM_Lizzy/Lizzy_EyeTeeth_low:Group32849

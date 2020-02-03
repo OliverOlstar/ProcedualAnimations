@@ -1106,16 +1106,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5068451087636149633, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: stepWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6237853051496095939, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: DodgeAnimSpeedSlowdown
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 6237853051496095961, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
         type: 3}
       propertyPath: m_Name
@@ -1176,24 +1166,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6526132147228866398, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: attacks.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: feccfe14a6745df418038c2d99649f83,
-        type: 2}
-    - target: {fileID: 6526132147228866398, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: attacks.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 732136e49e1aff94f98488714c8ff1d5,
-        type: 2}
-    - target: {fileID: 6526132147228866398, guid: 1de0b3e0d3f9f0d41bf052b63686a241,
-        type: 3}
-      propertyPath: attacks.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: c843a2f1728f4f94f954983a281f0a14,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de0b3e0d3f9f0d41bf052b63686a241, type: 3}
 --- !u!1 &1518700285

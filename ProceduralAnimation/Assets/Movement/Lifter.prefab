@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b135975d9f46604ba998397074762fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepWeight: 1
+  stepWeight: 0
   jumpWeight: 0
   crouchWeight: 0
   attackWeight: 0
@@ -73,9 +73,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 365918b984a3a1c49ba47b65cdda9f9e, type: 2}
   - {fileID: 11400000, guid: 8f7ea7fe693a34143a48a0b80099411c, type: 2}
   - {fileID: 11400000, guid: 14a66436df1065d46bf9e6b1513243d2, type: 2}
-  - {fileID: 11400000, guid: 365918b984a3a1c49ba47b65cdda9f9e, type: 2}
-  - {fileID: 11400000, guid: 8f7ea7fe693a34143a48a0b80099411c, type: 2}
-  - {fileID: 11400000, guid: 14a66436df1065d46bf9e6b1513243d2, type: 2}
+  - {fileID: 11400000, guid: feccfe14a6745df418038c2d99649f83, type: 2}
+  - {fileID: 11400000, guid: 732136e49e1aff94f98488714c8ff1d5, type: 2}
+  - {fileID: 11400000, guid: c843a2f1728f4f94f954983a281f0a14, type: 2}
 --- !u!1 &6237853049773769088
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,10 +277,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27685d25af2899c45bfb83c570a1fbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAcceleration: 2200
+  _moveAcceleration: 2000
   maxSpeed: 6
   inputInfluence: 1
-  jumpForceUp: 20
+  _jumpForceUp: 24
+  _jumpForceVelocityMult: 1.7
   disableMovement: 0
 --- !u!114 &6237853051496095939
 MonoBehaviour:
