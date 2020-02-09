@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stepping Graph
   m_EditorClassIdentifier: 
   EndValue: 0.5
-  firstBender: {x: 0.53, y: -0.85}
-  secondBender: {x: 4.18, y: 3}
+  firstBender: {x: -1.02, y: 0.41}
+  secondBender: {x: 1.96, y: 0.07}
